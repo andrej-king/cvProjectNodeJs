@@ -1,0 +1,213 @@
+:root {
+    --bg-color: #fff;
+    --profile-name-color: #797979;
+    --profile-position-color: #546da9;
+    --profile-section-title-color: #797979;
+    --border-center-image: linear-gradient(
+            to bottom,
+            rgba(2, 0, 36, 1) 10%, rgba(9, 9, 121, 1) 50%, rgba(0, 212, 255, 1) 100%
+    ) 1 100%;
+
+
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    background-color: #d4d4d4;
+    font-family: 'Roboto', 'Arial', sans-serif;
+    line-height: 1.15;
+    font-size: 16px;
+    min-width: 320px;
+    word-break: break-word;
+}
+
+.main-container {
+    background-color: var(--bg-color);
+    min-width: 400px;
+}
+
+
+/*-------------------------- START PROFILE-SECTION --------------------------*/
+.profile-section {
+    padding: 1rem;
+}
+
+.profile-section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: var(--profile-section-title-color);
+    padding: 1rem;
+}
+
+.profile-inner-section {
+    margin-bottom: 2rem;
+}
+
+/*-------------------------- END PROFILE-SECTION --------------------------*/
+.profile-right-section {
+    border-width: 3px;
+    border-style: solid;
+    border-image:var(--border-center-image);
+    border-right: none;
+}
+
+.profile-left-section {
+    border-right: 1px solid transparent;
+}
+
+.profile-left-section,
+.profile-right-section {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/*-------------------------- START FIRST-SECTION --------------------------*/
+.profile-name-and-position-wrap {
+    color: var(--profile-name-color);
+}
+
+.profile-name-wrap {
+    font-size: 3rem;
+}
+
+.profile-position-wrap {
+    color: var(--profile-position-color);
+    font-size: 1.2rem;
+}
+
+/*-------------------------- END FIRST-SECTION --------------------------*/
+
+
+/*-------------------------- START SECTION-CONTACTS --------------------------*/
+.section-contacts_subtitle {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.7rem;
+}
+
+/*-------------------------- END SECTION-CONTACTS --------------------------*/
+
+
+/*-------------------------- START SECTION-EDUCATION --------------------------*/
+.education-item {
+    margin-bottom: 3rem;
+}
+
+.education-item:last-child {
+    margin-bottom: 0;
+}
+
+.section-education_institution-title {
+    font-weight: bold;
+}
+
+.section-education_institution-title,
+.section-education-profession {
+    margin-bottom: 1rem;
+}
+
+.section-education-profession,
+.section-education-dates {
+    color: var(--profile-section-title-color);
+}
+
+/*-------------------------- END SECTION-EDUCATION --------------------------*/
+
+
+/*-------------------------- START SECTION-SOFT-SKILLS --------------------------*/
+.soft-skill-list {
+    margin-bottom: 0;
+    padding: 0;
+    line-height: 1.5;
+}
+/*-------------------------- END SECTION-SOFT-SKILLS --------------------------*/
+
+
+/*-------------------------- START SECTION-LANGUAGES --------------------------*/
+.lang-list {
+    margin: 0;
+    padding: 0;
+}
+
+.lang-item {
+    margin-bottom: 0.7rem;
+}
+
+/*-------------------------- END SECTION-LANGUAGES --------------------------*/
+
+
+/*-------------------------- START SECTION-ABOUT --------------------------*/
+.about-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.about-item {
+    margin-bottom: 0.7rem;
+}
+/*-------------------------- END SECTION-ABOUT --------------------------*/
+
+
+/*-------------------------- START SECTION-TEHNICAL-SKILLS --------------------------*/
+.tehnical-skills_subtitle {
+    font-weight: bold;
+}
+
+.tehnical-skill-list {
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.tehnical-skill-list:last-child {
+    margin-bottom: 0;
+}
+
+/*-------------------------- END SECTION-TEHNICAL-SKILLS --------------------------*/
+
+
+.responsibility-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.responsibility-item {
+    margin-bottom: 0.7rem;
+}
+
+.section-experiance_institution_title {
+    font-weight: bold;
+}
+
+.section-experiance_institution_title,
+.section-experiance_profession,
+.section-experiance_dates {
+    margin-bottom: 1rem;
+}
+
+.section-experiance_profession,
+.section-experiance_dates {
+    color: var(--profile-section-title-color);
+}
+
+.experiance-item {
+    margin-bottom: 3rem;
+}
+
+.experiance-item:last-child {
+    margin-bottom: 0;
+}
