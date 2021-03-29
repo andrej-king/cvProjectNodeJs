@@ -4,7 +4,7 @@ exports.getFullCv = (req, res) => {
 	CV.findOne()
 		.then(cv => {
 			if (cv === null) {
-				const newCv = new CV({
+				const cv = new CV({
 					userId: req.user._id,
 					cv: {
 						name: 'John',
@@ -157,10 +157,10 @@ exports.getFullCv = (req, res) => {
 						]
 					}
 				});
-				newCv.save();
-				res.send(JSON.stringify(newCv.cv));
+				cv.save();
+				res.send(JSON.stringify(cv));
 			} else {
-				res.send(JSON.stringify(cv.cv));
+				res.send(JSON.stringify(cv));
 			}
 
 		})

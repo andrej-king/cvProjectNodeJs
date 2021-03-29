@@ -16,8 +16,8 @@ const cvSchema = new Schema({
 		careerObjective: {type: String, required: true},
 		contacts: {
 			city: { type: String },
-			email: [{ type: String }],
-			phone: [{ type: String }]
+			email: { type: String },
+			phone: { type: String }
 		},
 		summary: [{type: String, required: true}],
 		tehnicalSkillSet: [{

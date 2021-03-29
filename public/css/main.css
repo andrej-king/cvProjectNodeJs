@@ -211,3 +211,7 @@ body {
 .experiance-item:last-child {
     margin-bottom: 0;
 }
+
+.d-none-important {
+    display: none!important;
+}
