@@ -46,6 +46,26 @@ $(function () {
 			}
 
 
+			// technical courses
+			if (cv.technicalCourses.length > 0) {
+				let courses = '';
+				$(cv.technicalCourses).each(function (key, course) {
+					courses += '<div class="technical-courses-item">';
+					courses += '<div class="section-technical-courses-title">';
+					courses += course.courseName;
+					courses += '</div>';
+
+					courses += '<div class="section-technical-courses-dates">';
+					courses += course.dateStart + ' - ' + course.dateEnd;
+					courses += '</div>';
+					courses += '</div>';
+				});
+				$('#technical-courses-inner').html(courses);
+			} else {
+				$('.section-technical-courses').addClass(hideImportantClass);
+			}
+
+
 			// soft skills
 			if (cv.softSkillSet.length > 0) {
 				let softSkillList = '<p class="soft-skill-list">';

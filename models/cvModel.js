@@ -16,7 +16,7 @@ const cvSchema = new Schema({
 		careerObjective: {type: String, required: true},
 		contacts: {
 			city: { type: String },
-			email: { type: String },
+			email: { type: String, required: true },
 			phone: { type: String }
 		},
 		summary: [{type: String, required: true}],
@@ -41,7 +41,7 @@ const cvSchema = new Schema({
 		technicalCourses: [{
 			dateStart: {type: String},
 			dateEnd: {type: String},
-			courseName: {type: String}
+			courseName: {type: String, required: true}
 		}],
 		language: [{
 			name: {type: String, required: true},

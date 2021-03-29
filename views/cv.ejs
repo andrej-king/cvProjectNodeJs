@@ -4,25 +4,12 @@
 <body>
 
 <main class="container main-container mt-lg-3">
-    <div class="row profile-section">
-        <div class="row col-12 col-lg-4 justify-content-center align-items-center profile-image-container p-4 profile-inner-section">
-            <img class="rounded-circle w-50 profile-photo" id="profile-photo" src="" alt="">
-        </div>
-        <div class="row col-12 col-lg-8 justify-content-center align-items-center profile-name-and-position-wrap profile-inner-section">
-            <div class="text-uppercase">
-                <div class="profile-name-wrap text-center">
-                    <span class="profile-name" id="profile-name"></span> <span class="profile-surname" id="profile-surname"></span>
-                </div>
-                <div class="profile-position-wrap text-center mt-3">
-                    <span class="profile-position" id="profile-position"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.profile-section /.first-section-->
-
     <div class="d-flex align-items-start profile-section">
-        <div class="row profile-left-section col-lg-4">
+        <div class="row profile-left-section">
+            <div class="d-flex justify-content-center align-items-center profile-image-container p-4 profile-inner-section">
+                <img class="rounded-circle w-50 profile-photo" id="profile-photo" src="" alt="">
+            </div>
+
             <div class="section-contacts profile-inner-section">
                 <div class="section-title">
                     Contacts
@@ -62,6 +49,16 @@
             </div>
             <!-- /.section-education -->
 
+            <div class="section-technical-courses profile-inner-section">
+                <div class="section-title">
+                    Technical courses
+                </div>
+                <!-- /.section-title -->
+                <div class="technical-courses-inner" id="technical-courses-inner"></div>
+                <!-- /.education-inner -->
+            </div>
+            <!-- /.technical-courses -->
+
             <div class="section-soft-skills profile-inner-section">
                 <div class="section-title">
                     Soft skills
@@ -85,6 +82,17 @@
         <!-- /.profile-left-section-->
 
         <div class="profile-right-section col-lg-8">
+            <div class="d-flex justify-content-center align-items-center p-4 pt-5 profile-name-and-position-wrap profile-inner-section">
+                <div class="text-uppercase">
+                    <div class="profile-name-wrap text-center">
+                        <span class="profile-name" id="profile-name"></span> <span class="profile-surname" id="profile-surname"></span>
+                    </div>
+                    <div class="profile-position-wrap text-center mt-3">
+                        <span class="profile-position" id="profile-position"></span>
+                    </div>
+                </div>
+            </div>
+
             <div class="section-about profile-inner-section">
                 <div class="section-title">
                     About me

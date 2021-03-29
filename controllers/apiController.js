@@ -148,12 +148,44 @@ exports.getFullCv = (req, res) => {
 								dateEnd: '06/2012',
 								institutionName: 'University of Oklahoma - Norman, OK',
 								courseName: 'It'
+							},
+							{
+								dateStart: '09/2003',
+								dateEnd: '06/2007',
+								institutionName: 'Bachelor of Science in Computer Science',
+								courseName: 'It'
+							},
+							{
+								dateStart: '09/2007',
+								dateEnd: '06/2012',
+								institutionName: 'University of Oklahoma - Norman, OK',
+								courseName: 'It'
 							}
+						],
+						technicalCourses: [
+							{
+							dateStart: '09/2003',
+							dateEnd: '12/2003',
+							courseName: 'It'
+							},
+							{
+								dateStart: '05/2005',
+								dateEnd: '10/2005',
+								courseName: 'It'
+							},
+							{
+								dateStart: '03/2006',
+								dateEnd: '09/2006',
+								courseName: 'It'
+							},
 						],
 						language: [
 							{name: 'Portuguese', level: 'Full professional'},
 							{name: 'English', level: 'Native'},
-							{name: 'French', level: 'Professional working'}
+							{name: 'French', level: 'Professional working'},
+							{name: 'French', level: 'Professional working'},
+							{name: 'French', level: 'Professional working'},
+							{name: 'French', level: 'Professional working'},
 						]
 					}
 				});
