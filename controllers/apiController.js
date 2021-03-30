@@ -115,11 +115,11 @@ exports.getFullCv = (req, res) => {
 								companyName: 'Center for Independent and Distance Learning, Norman, OK',
 								position: 'Information Technology Analyst',
 								responsibilities: [
-									'Design and development of a large scale Windows GUI application in Visual Basic.NET/2005 connecting to Oracle 8i and PostgreSQL 7.3/7.4 databases.',
-									'Created design documents for 3-tiered system architecture consisting of Presentation, Business Logic, and Data Access layers. Implemented above system in Visual Basic.NET.',
-									'Development of ASP Web application connecting to MS Access database.',
-									'Made extensive use of Object Oriented Programming principles in all software systems developed.',
-									'Gathered project requirements and developed software process flowcharts and Graphical User Interface (GUI) design documents.'
+									'Design and development of a large scale Windows GUI application in Visual Basic.NET/2005 connecting to Oracle 8i and PostgreSQL 7.3/7.4 databases',
+									'Created design documents for 3-tiered system architecture consisting of Presentation, Business Logic, and Data Access layers. Implemented above system in Visual Basic.NET',
+									'Development of ASP Web application connecting to MS Access database',
+									'Made extensive use of Object Oriented Programming principles in all software systems developed',
+									'Gathered project requirements and developed software process flowcharts and Graphical User Interface (GUI) design documents'
 								]
 							},
 							{
@@ -128,11 +128,11 @@ exports.getFullCv = (req, res) => {
 								companyName: 'K20 Center, Norman, OK',
 								position: 'Game Programmer',
 								responsibilities: [
-									'Developed videogames in C++ and Lua for PC and the Samsung Ultra Mobile Personal Computer platform. Used Ogre for 3D graphics, Flash CS3 and CEGUI for user interfaces, RakNet for networking, and the C++ Standard Template Library (STL).',
-									'Created design documents (program flowcharts, UML designs, and ERD database designs) for portions of the game according to user specifications.',
-									'Added and modified tables and stored procedures in MySQL 5.0 database and developed C++ code to interact with it.',
+									'Developed videogames in C++ and Lua for PC and the Samsung Ultra Mobile Personal Computer platform. Used Ogre for 3D graphics, Flash CS3 and CEGUI for user interfaces, RakNet for networking, and the C++ Standard Template Library (STL)',
+									'Created design documents (program flowcharts, UML designs, and ERD database designs) for portions of the game according to user specifications',
+									'Added and modified tables and stored procedures in MySQL 5.0 database and developed C++ code to interact with it',
 									'Worked on Lua scripts to define the behavior of in-game objects and to provide capabilities for interacting with them. Collaborated with designer to translate game content from storyboards into missions and gameplay scenarios',
-									'Used Subversion for keeping track of source code changes. Performed game testing and used Acunote and Trac for keeping track of bugs found.'
+									'Used Subversion for keeping track of source code changes. Performed game testing and used Acunote and Trac for keeping track of bugs found'
 								]
 							}
 						],

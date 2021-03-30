@@ -1,5 +1,24 @@
+/*
+* GENERAL
+* CONTOL BUTTONS
+* PROFILE-SECTION
+* FIRST-SECTION
+* SECTION-CONTACTS
+* SECTION-EDUCATION
+* SECTION-TECHNICAL-COURSES
+* SECTION-SOFT-SKILLS
+* SECTION-LANGUAGES
+* SECTION-ABOUT
+* SECTION-TEHNICAL-SKILLS
+* SECTION-EXPERIANCE
+*/
+
+/*-------------------------- START GENERAL --------------------------*/
 :root {
     --bg-color: #fff;
+    --bg-success: #198754;
+    --bg-warning: #ffc107;
+
     --profile-name-color: #797979;
     --profile-position-color: #546da9;
     --profile-section-title-color: #797979;
@@ -8,8 +27,6 @@
             rgba(2, 0, 36, 1) 10%, rgba(9, 9, 121, 1) 50%, rgba(0, 212, 255, 1) 100%
     ) 1 100%;
     --side-bg-color: #f9f9f9;
-
-
 }
 
 *,
@@ -34,6 +51,43 @@ body {
     min-width: 400px;
 }
 
+#main-container {
+    position: relative;
+}
+/*-------------------------- END GENERAL --------------------------*/
+
+
+/*-------------------------- START CONTOL BUTTONS --------------------------*/
+#contol_buttons {
+    position: absolute;
+    right: -50px;
+    top: 0;
+    width: 42px;
+    display: flex;
+    flex-direction: column;
+}
+
+#edit_btn {
+    background-color: var(--bg-warning);
+    color: white;
+}
+
+#edit_btn:hover {
+    background-color: #b99a3c;
+    color: white;
+}
+
+#save_btn {
+    background-color: var(--bg-success);
+    color: white;
+}
+
+#save_btn:hover {
+    background-color: #35af77;
+    color: white;
+}
+/*-------------------------- END CONTOL BUTTONS --------------------------*/
+
 
 /*-------------------------- START PROFILE-SECTION --------------------------*/
 .profile-section {
@@ -57,7 +111,6 @@ body {
     margin-bottom: 2rem;
 }
 
-/*-------------------------- END PROFILE-SECTION --------------------------*/
 .profile-right-section {
     /*border-width: 3px;*/
     /*border-style: solid;*/
@@ -75,6 +128,8 @@ body {
     padding-left: 3rem;
     padding-right: 3rem;
 }
+/*-------------------------- END PROFILE-SECTION --------------------------*/
+
 
 /*-------------------------- START FIRST-SECTION --------------------------*/
 .profile-name-and-position-wrap {
@@ -210,6 +265,7 @@ body {
 /*-------------------------- END SECTION-TEHNICAL-SKILLS --------------------------*/
 
 
+/*-------------------------- START SECTION-EXPERIANCE --------------------------*/
 .responsibility-list {
     list-style: none;
     margin: 0;
@@ -246,3 +302,4 @@ body {
 .d-none-important {
     display: none!important;
 }
+/*-------------------------- END SECTION-EXPERIANCE --------------------------*/
