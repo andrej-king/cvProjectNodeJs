@@ -151,7 +151,7 @@
                         <ul class="about-list">
                             <% cv.cv.summary.forEach(function (value) { %>
                                 <li class="about-item d-flex align-items-center">
-                                    <textarea rows="3" class="w-100 p-1 summaryTextArea" type="text" name="textSummary[]"><%= value %></textarea>
+                                    <textarea rows="3" class="w-100 p-1 summaryTextArea js-mainInfo" type="text" name="textSummary[]"><%= value %></textarea>
                                     <a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>
                                 </li>
                             <% }) %>
@@ -237,7 +237,7 @@
                                 <div>
                                     <div class="me-2 d-flex align-items-center mb-2 fw-bolder">
                                         <label class="" for="nameInput">Responsibilities:</label>
-                                        <a href="#" class="ms-2 text-primary" id="plusResponsibilityItem"><i class="bi bi-plus-circle"></i></a>
+                                        <a href="#" class="ms-2 text-primary plusResponsibilityItem"><i class="bi bi-plus-circle"></i></a>
                                     </div>
                                     <div class="">
                                         <% if (value.responsibilities.length > 0) { %>

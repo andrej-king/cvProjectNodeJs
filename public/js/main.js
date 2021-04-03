@@ -229,7 +229,7 @@ $(function () {
 			e.preventDefault();
 
 			let aboutItem = '<li class="about-item d-flex align-items-center">' +
-				'<textarea rows="3" class="w-100 p-1" type="text" name="textSummary[]"></textarea>' +
+				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>'
 			$('.about-list').append(aboutItem);
@@ -287,7 +287,7 @@ $(function () {
 			console.log('click plusExperianceItem');
 		});
 
-		$('#plusResponsibilityItem').on('click', function (e) {
+		$('.plusResponsibilityItem').on('click', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
 			console.log('click plus ResponsibilityItem');
@@ -330,6 +330,11 @@ $(function () {
 				skills = [];
 			});
 
+			const summary = [];
+			$('textarea[name="textSummary[]"]').each(function() {
+				summary.push($(this).val());
+			});
+
 
 			let name = e.target.name;
 			let content = e.target.value.trim();
@@ -340,6 +345,9 @@ $(function () {
 			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
 				name = 'tehnicalSkillSet';
 				content = tehnicalSkillSet;
+			} else if (name === 'textSummary[]') {
+				name = 'summary';
+				content = summary;
 			}
 
 			if (name !== '' && content !== '') {
