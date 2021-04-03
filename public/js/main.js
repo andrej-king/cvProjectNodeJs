@@ -316,7 +316,9 @@ $(function () {
 
 				let inputName = 'input[name="' + $(this).val() +'_technicalskillSet[]"]';
 				$(inputName).each(function() {
-					skills.push($(this).val());
+					if ($(this).val() !== '') {
+						skills.push($(this).val());
+					}
 				});
 
 				if (skills.length > 0) {
