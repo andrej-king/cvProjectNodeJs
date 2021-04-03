@@ -1,12 +1,22 @@
 // page is ready
 $(function () {
 	const homePage = window.location.origin;
+	const editPageUrl = homePage + '/edit/';
 	const hideImportantClass = 'd-none-important';
-	const saveBtn = $('#save_btn');
 	const editBtn = $('#edit_btn');
+	var isEditPage = false;
 
+	if (window.location.href === homePage + '/') {
+		isEditPage = false;
+	} else {
+		let editPageUrlLength = editPageUrl.length;
+		if (window.location.href.substr(0, editPageUrlLength) === editPageUrl) {
+			isEditPage = true;
+		}
+	}
 
-	$.ajax({
+	if (window.location.href === homePage + '/') {
+		$.ajax({
 		url: homePage + '/api',
 		success: function (result) {
 			const cvObject = JSON.parse(result);
@@ -41,6 +51,7 @@ $(function () {
 			} else {
 				$('#profile-position-wrap').addClass(hideImportantClass);
 			}
+
 
 
 
@@ -210,6 +221,152 @@ $(function () {
 			}
 		}
 	});
+	} else {
+
+		//region about section
+		$('#plusAboutItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let aboutItem = '<li class="about-item d-flex align-items-center">' +
+				'<textarea rows="3" class="w-100 p-1" type="text" name="textSummary[]"></textarea>' +
+				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>'
+			$('.about-list').append(aboutItem);
+		});
+
+		$(document).on('click','.removeAboutItem',function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).prev().val('');
+			$(this).parents('.about-item').remove();
+		});
+		//endregion
+
+
+		//region section tehnical skills set
+		$('#plusTehnicalSkillsItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let aboutItem = '<ul class="tehnical-skill-list list-unstyled">' +
+				'<li class="technical-category-name mb-2 d-flex align-items-center">' +
+					'<input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" type="text" name="tehnicalSkillCategoryName[]"/>' +
+					'<a href="#" class="ms-2 text-primary plusTehnicalSkill"><i class="bi bi-plus-circle"></i></a>' +
+				'</li>' +
+				'</ul>' +
+				'<hr>';
+			$('#tehnical-skills-inner').append(aboutItem);
+		});
+
+		$(document).on('click','.plusTehnicalSkill',function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+
+			let inputName = $(this).prev().val() + '_technicalskillSet[]';
+			let appendSkill = '<li class="technical-skill-item mb-2 d-flex align-items-center">' +
+				'<input class="p-1 w-50 js-mainInfo" type="text" name="' + inputName + '">' +
+				'<a href="#" class="btn text-danger ms-2 removeTechnicalskill"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>'
+			$(this).parents('.tehnical-skill-list').append(appendSkill);
+		});
+
+		$(document).on('click','.removeTechnicalskill',function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).prev().val('');
+			$(this).parents('.technical-skill-item').remove();
+		});
+		//endregion
+
+		//region section experiance
+		$('#plusExperianceItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			console.log('click plusExperianceItem');
+		});
+
+		$('#plusResponsibilityItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			console.log('click plus ResponsibilityItem');
+		});
+
+		$(document).on('click', '.removeResponsibilityItem', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			console.log('click removeResponsibilityItem');
+		});
+		//endregion
+
+
+		//region tehnical Skill Set
+		ignoreWiteSpaceKey('.tehnicalSkillCategoryName');
+
+		//endregion
+
+
+		// Trigger the event when the field loses focus
+		$(document).on('blur', '.js-mainInfo', function (e) {
+
+			const tehnicalSkillSet = [];
+			let skills = [];
+			$('input[name="tehnicalSkillCategoryName[]"]').each(function() {
+
+				let inputName = 'input[name="' + $(this).val() +'_technicalskillSet[]"]';
+				$(inputName).each(function() {
+					skills.push($(this).val());
+				});
+
+				if (skills.length > 0) {
+					tehnicalSkillSet.push({
+						categoryName: $(this).val(),
+						skills: skills
+					});
+				}
+				skills = [];
+			});
+
+
+			let name = e.target.name;
+			let content = e.target.value.trim();
+			if (name === 'photoUrl') {
+				$('#profile-photo').attr('src', content);
+			}
+
+			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
+				name = 'tehnicalSkillSet';
+				content = tehnicalSkillSet;
+			}
+
+			if (name !== '' && content !== '') {
+				$.ajax({
+					url: editPageUrl,
+					method: "POST",
+					dataType: "json",
+					data: {cvId: $('#cvId').val(), name: name, content: content},
+					success: function (result) {
+						var now = new Date(Date.now());
+						var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+						$('.currentTime').html(formatted);
+						let resultColor = '';
+						if (result.result === 'success') {
+							resultColor = 'text-success';
+						} else {
+							resultColor = 'text-danger';
+						}
+
+						$('.toast-body').html(`<p class="${resultColor}">${result.msg}</p>`);
+						$('.toast').toast('show');
+					}
+				});
+			}
+		});
+
+
+
+	}
 });
 
 function showInfoOrHideParentBlock(checkField, fieldForInsert, parentBlock, hideClass) {
@@ -220,3 +377,11 @@ function showInfoOrHideParentBlock(checkField, fieldForInsert, parentBlock, hide
 	}
 }
 
+function ignoreWiteSpaceKey(input) {
+	$(document).on('keypress', input, function (evt) {
+		var keycode = evt.charCode || evt.keyCode;
+		if (keycode  === 32) {
+			return false;
+		}
+	});
+}

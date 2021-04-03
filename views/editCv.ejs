@@ -1,0 +1,272 @@
+<%- include('includes/header.ejs') %>
+<link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+<main class="container main-container mt-lg-3" id="main-container">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">CV</strong>
+                <small class="currentTime"></small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+
+    <div class="contol_buttons" id="contol_buttons">
+        <a href="/edit" class="btn <%= isEdit ? 'd-none-important' : '' %>" id="edit_btn"><i class="bi bi-pencil-square"></i></a>
+        <a href="/" class="btn <%= isEdit ? '' : 'd-none-important' %>" id="save_btn"><i class="bi bi-eye"></i></a>
+    </div>
+    <input type="hidden" name="cvId" id="cvId" value="<%= cv._id %>">
+
+    <div class="d-flex align-items-start profile-section">
+        <% if (typeof cv !== 'undefined' && cv !== '') {%>
+        <div class="row profile-left-section">
+            <div class="d-flex flex-column justify-content-center align-items-center profile-image-container p-4 profile-inner-section" id="profile-image-container">
+                <img class="rounded-circle w-50 mb-2 profile-photo" id="profile-photo" src="<%= cv.cv.photoUrl%>" alt="">
+
+                <input class="w-100 js-mainInfo" type="text" value="<%= cv.cv.photoUrl%>" name="photoUrl">
+            </div>
+
+            <div class="section-contacts profile-inner-section">
+                <div class="section-title">
+                    Contacts
+                </div>
+                <!-- /.section-title -->
+                <div class="d-flex mb-2 align-items-center section-contacts_address" id="section-contacts_address">
+                    <div class="col-5 col-lg-4 m-0 section-contacts_subtitle address-title">
+                        <label for="addressInput">Address:</label>
+                    </div>
+                    <div class="col col-lg-8 address" id="address">
+                        <input type="text" value="<%= cv.cv.contacts.city %>" name="city" id="addressInput" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+                <!-- /.section-contacts_address -->
+                <div class="d-flex mb-2 align-items-center section-contacts_phone" id="section-contacts_phone">
+                    <div class="col-5 col-lg-4 mb-0 section-contacts_subtitle phone-title">
+                        <label for="phoneInput">Phone:</label>
+                    </div>
+                    <div class="col col-lg-8 phone" id="phone">
+                        <input type="text" value="<%= cv.cv.contacts.phone %>" name="phone" id="phoneInput" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+                <!-- /.section-contacts_phone -->
+                <div class="d-flex mb-0 align-items-center section-contacts_email" id="section-contacts_email">
+                    <div class="col-5 col-lg-4 mb-0 section-contacts_subtitle email-title">
+                        <label for="emailInput">Email:</label>
+                    </div>
+                    <div class="col col-lg-8 email" id="email">
+                        <input type="text" value="<%= cv.cv.contacts.email %>" name="email" id="emailInput" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+                <!-- /.section-contacts_email -->
+            </div>
+            <!-- /.section-contacts -->
+
+            <div class="section-education profile-inner-section" id="section-education">
+                <div class="section-title">
+                    Education
+                </div>
+                <!-- /.section-title -->
+                <div class="education-inner" id="education-inner">
+
+                </div>
+                <!-- /.education-inner -->
+            </div>
+            <!-- /.section-education -->
+
+            <div class="section-technical-courses profile-inner-section" id="section-technical-courses">
+                <div class="section-title">
+                    Technical courses
+                </div>
+                <!-- /.section-title -->
+                <div class="technical-courses-inner" id="technical-courses-inner"></div>
+                <!-- /.education-inner -->
+            </div>
+            <!-- /.technical-courses -->
+
+            <div class="section-soft-skills profile-inner-section" id="section-soft-skills">
+                <div class="section-title">
+                    Soft skills
+                </div>
+                <!-- /.section-title -->
+                <div class="soft-skills-inner" id="soft-skills-inner"></div>
+                <!-- /.soft-skills-inner -->
+            </div>
+            <!-- /.section-soft-skills -->
+
+            <div class="section-languages profile-inner-section" id="section-languages">
+                <div class="section-title">
+                    Languages
+                </div>
+                <!-- /.section-title -->
+                <div class="languages-inner" id="languages-inner"></div>
+                <!-- /.languages-inner -->
+            </div>
+            <!-- /.section-languages -->
+        </div>
+        <!-- /.profile-left-section-->
+
+        <div class="profile-right-section col-lg-8">
+            <div class="d-flex flex-column justify-content-center align-items-start pt-5 profile-name-and-position-wrap profile-inner-section">
+                <div class="d-flex w-100 align-items-center" id="profile-name-wrap">
+                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                        <label class="" for="nameInput">Name:</label>
+                    </div>
+                    <div class="col-9 col-lg-10">
+                        <input type="text" value="<%= cv.cv.name %>" id="nameInput" name="name" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+                <div class="d-flex w-100 align-items-center" id="profile-surname-wrap">
+                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                        <label class="mr-2" for="surnameInput">Surname:</label>
+                    </div>
+                    <div class="col-9 col-lg-10">
+                        <input type="text" value="<%= cv.cv.surname %>" id="surnameInput" name="surname" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+                <div class="d-flex w-100 align-items-center" id="profile-position-wrap">
+                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                        <label class="mr-2" for="positionInput">Position:</label>
+                    </div>
+                    <div class="col-9 col-lg-10">
+                        <input type="text" value="<%= cv.cv.careerObjective %>" id="positionInput" name="careerObjective" class="p-1 js-mainInfo">
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-about profile-inner-section" id="section-about">
+                <div class="section-title">
+                    About me
+                    <a href="#" class="ms-2 text-primary" id="plusAboutItem"><i class="bi bi-plus-circle"></i></a>
+                </div>
+                <!-- /.section-title -->
+
+                <div class="about-inner" id="about-inner">
+                    <% if (cv.cv.summary.length > 0) {%>
+                        <ul class="about-list">
+                            <% cv.cv.summary.forEach(function (value) { %>
+                                <li class="about-item d-flex align-items-center">
+                                    <textarea rows="3" class="w-100 p-1 summaryTextArea" type="text" name="textSummary[]"><%= value %></textarea>
+                                    <a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </div>
+                <!-- /.about-inner -->
+            </div>
+            <!-- /.section-about -->
+
+            <div class="section-tehnical-skills profile-inner-section" id="section-tehnical-skills">
+                <div class="section-title">
+                    Tehnical skills
+                    <a href="#" class="ms-2 text-primary" id="plusTehnicalSkillsItem"><i class="bi bi-plus-circle"></i></a>
+                </div>
+                <!-- /.section-title -->
+                <div class="tehnical-skills-inner" id="tehnical-skills-inner">
+                    <% if (cv.cv.tehnicalSkillSet.length > 0) { %>
+                            <% cv.cv.tehnicalSkillSet.forEach(function (value) { %>
+                                <ul class="tehnical-skill-list list-unstyled">
+                                    <% if (typeof value.categoryName !== 'undefined') { %>
+                                        <li class="technical-category-name mb-2 d-flex align-items-center">
+                                            <input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" type="text" name="tehnicalSkillCategoryName[]" value="<%= value.categoryName %>" />
+                                            <a href="#" class="ms-2 text-primary plusTehnicalSkill"><i class="bi bi-plus-circle"></i></a>
+                                        </li>
+                                    <% } %>
+
+                                    <% if (value.skills.length > 0) { %>
+                                        <% value.skills.forEach(function (skill) { %>
+                                            <li class="technical-skill-item mb-2 d-flex align-items-center">
+                                                <input class="p-1 w-50 js-mainInfo" type="text" name="<%= value.categoryName %>_technicalskillSet[]" value="<%= skill %>">
+                                                <a href="#" class="btn text-danger ms-2 removeTechnicalskill"><i class="bi bi-trash-fill"></i></a>
+                                            </li>
+                                        <% }) %>
+                                    <% } %>
+                                </ul>
+                            <hr>
+                            <% }) %>
+                    <% } %>
+                </div>
+                <!-- /.tehnical-skills-inner -->
+            </div>
+            <!-- /.section-tehnical-skills -->
+
+            <div class="section-experiance profile-inner-section" id="section-experiance">
+                <div class="section-title">
+                    Experiance
+                    <a href="#" class="ms-2 text-primary" id="plusExperianceItem"><i class="bi bi-plus-circle"></i></a>
+                </div>
+                <!-- /.section-title -->
+
+                <div class="experiance-inner" id="experiance-inner">
+                    <% if (cv.cv.workExperiance.length) { %>
+                        <% cv.cv.workExperiance.forEach(function (value) { %>
+                            <div class="experiance-item">
+                                <div class="d-flex mb-3 align-items-center">
+                                    <div class="me-2 fw-bolder col-2">
+                                        <label class="" for="nameInput">Company name:</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="w-100 p-1" name="experianceTitle[]" value="<%= value.companyName %>">
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <div class="me-2 fw-bolder col-2">
+                                        <label class="" for="nameInput">Position title:</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="w-100 p-1" name="experiancePosition[]" value="<%= value.position %>">
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3 align-items-center">
+                                    <div class="me-2 fw-bolder col-2">
+                                        <label class="" for="nameInput">Experiance dates:</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <input type="text" class="w-40 p-1" name="experianceDateStart[]" value="<%= value.dateStart %>">
+                                        <input type="text" class="w-40 p-1" name="experianceDateEnd[]" value="<%= value.dateEnd %>">
+                                    </div>
+                                </div>
+
+
+                                <div>
+                                    <div class="me-2 d-flex align-items-center mb-2 fw-bolder">
+                                        <label class="" for="nameInput">Responsibilities:</label>
+                                        <a href="#" class="ms-2 text-primary" id="plusResponsibilityItem"><i class="bi bi-plus-circle"></i></a>
+                                    </div>
+                                    <div class="">
+                                        <% if (value.responsibilities.length > 0) { %>
+                                            <ul class="list-unstyled responsibility-list">
+                                                <% value.responsibilities.forEach(function (responsibility, key) { %>
+                                                    <li class="d-flex align-items-center responsibility-item">
+                                                        <textarea class="w-100 mb-2 p-1" rows="3" name="responsibility[]" id=""><%= responsibility %></textarea>
+                                                        <a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>
+                                                    </li>
+                                                <% }) %>
+                                            </ul>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                        <% }) %>
+                    <% } %>
+                </div>
+                <!-- /.experiance-inner -->
+            </div>
+            <!-- /.section-experiance -->
+
+
+        </div>
+        <!-- /.profile-right-section-->
+            <% }%>
+    </div>
+    <div class="text-center py-2 fw-bolder text-black-50">Create by <span class="text-uppercase">Andrii</span></div>
+</main>
+
+<%- include('includes/footer.ejs') %>

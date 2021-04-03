@@ -69,7 +69,7 @@ body {
 
 #edit_btn {
     background-color: var(--bg-warning);
-    color: white;
+    color: black;
 }
 
 #edit_btn:hover {

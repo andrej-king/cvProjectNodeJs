@@ -8,7 +8,9 @@ const cvSchema = new Schema({
 		required: true
 	},
 	cv: {
-		name: {type: String, required: true},
+		type: Object,
+		required: true
+		/*name: {type: String, required: true},
 		surname: {type: String, required: true},
 		age: {type: Number},
 		birthday: {type: String},
@@ -49,7 +51,7 @@ const cvSchema = new Schema({
 		}],
 		Other: {
 			type: String
-		}
+		}*/
 	}
 });
 

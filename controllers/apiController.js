@@ -190,8 +190,10 @@ exports.getFullCv = (req, res) => {
 					}
 				});
 				cv.save();
+				req.currentCv = cv;
 				res.send(JSON.stringify(cv));
 			} else {
+				req.currentCv = cv;
 				res.send(JSON.stringify(cv));
 			}
 
