@@ -62,7 +62,7 @@ $(function () {
 
 
 			// education
-			if (cv.education.length > 0) {
+			if (typeof cv.education !== 'undefined' && cv.education.length > 0) {
 				let education = '';
 				$(cv.education).each(function (key, ed) {
 					education += '<div class="education-item">';
@@ -86,7 +86,7 @@ $(function () {
 
 
 			// technical courses
-			if (cv.technicalCourses.length > 0) {
+			if (typeof cv.technicalCourses !== 'undefined' && cv.technicalCourses.length > 0) {
 				let courses = '';
 				$(cv.technicalCourses).each(function (key, course) {
 					courses += '<div class="technical-courses-item">';
@@ -106,7 +106,7 @@ $(function () {
 
 
 			// soft skills
-			if (cv.softSkillSet.length > 0) {
+			if (typeof cv.softSkillSet !== 'undefined' && cv.softSkillSet.length > 0) {
 				let softSkillList = '<p class="soft-skill-list">';
 				$(cv.softSkillSet).each(function (key, skill) {
 					if (key === 0) {
@@ -124,7 +124,7 @@ $(function () {
 			}
 
 			// languages
-			if (cv.language.length > 0) {
+			if (typeof cv.language !== 'undefined' && cv.language.length > 0) {
 				let languageList = '<ul class="lang-list">';
 				$(cv.language).each(function (key, lang) {
 					languageList += '<li class="d-flex lang-item">';
@@ -143,7 +143,7 @@ $(function () {
 			}
 
 			// about
-			if (cv.summary.length > 0) {
+			if (typeof cv.summary !== 'undefined' && cv.summary.length > 0) {
 				let aboutList = '<ul class="about-list">';
 				$(cv.summary).each(function (key, value) {
 					aboutList += '<li class="about-item">';
@@ -157,7 +157,7 @@ $(function () {
 			}
 
 			//  Tehnical skills
-			if (cv.tehnicalSkillSet.length > 0) {
+			if (typeof cv.tehnicalSkillSet !== 'undefined' && cv.tehnicalSkillSet.length > 0) {
 				let skillSet = '';
 				$(cv.tehnicalSkillSet).each(function (key, value) {
 					skillSet += '<div class="tehnical-skill-list">';
@@ -167,7 +167,7 @@ $(function () {
 							skillSet += '</span>';
 						}
 
-						if (value.skills.length > 0) {
+						if (typeof value.skills !== 'undefined' && value.skills.length > 0) {
 							$(value.skills).each(function (key1, skill) {
 								if (key1 !== value.skills.length - 1) {
 									skillSet += skill + ', ';
@@ -185,34 +185,39 @@ $(function () {
 
 
 			// Experiance
-			if (cv.workExperiance.length > 0) {
+			if (typeof cv.workExperiance !== 'undefined' && cv.workExperiance.length > 0) {
+
 				let workExp = '<div class="experiance-item">'
 				$(cv.workExperiance.reverse()).each(function (key, value) {
-					workExp += '<div class="experiance-item">';
-						workExp += '<div class="section-experiance_institution_title">';
-							workExp += value.companyName;
-						workExp += '</div>';
-
-						workExp += '<div class="section-experiance_profession">';
-							workExp += value.position;
-						workExp += '</div>';
-
-						workExp += '<div class="section-experiance_dates">';
-							workExp += value.dateStart + ' - ' + value.dateEnd;
-						workExp += '</div>';
-
-						if (value.responsibilities.length > 0) {
-							workExp += '<div class="section-experiance_responsibilities">';
-								workExp += '<ul class="responsibility-list">';
-								$(value.responsibilities).each(function (key1, responsibility) {
-									workExp += '<li class="responsibility-item">';
-										workExp += responsibility + '.';
-									workExp += '</li>';
-								});
-								workExp += '</ul>';
+					if (value.companyName !== '' && value.position !== '' && value.dateStart !== '' && value.dateEnd !== '' && value.responsibilities.length > 0 && value.responsibilities[0] !== '') {
+						workExp += '<div class="experiance-item">';
+							workExp += '<div class="section-experiance_institution_title">';
+								workExp += value.companyName;
 							workExp += '</div>';
-						}
-					workExp += '</div>';
+
+							workExp += '<div class="section-experiance_profession">';
+								workExp += value.position;
+							workExp += '</div>';
+
+							workExp += '<div class="section-experiance_dates">';
+								workExp += value.dateStart + ' - ' + value.dateEnd;
+							workExp += '</div>';
+
+							if (typeof value.responsibilities !== 'undefined' && value.responsibilities.length > 0) {
+								workExp += '<div class="section-experiance_responsibilities">';
+									workExp += '<ul class="responsibility-list">';
+									$(value.responsibilities).each(function (key1, responsibility) {
+										if (responsibility !== '') {
+											workExp += '<li class="responsibility-item">';
+												workExp += responsibility + '.';
+											workExp += '</li>';
+										}
+									});
+									workExp += '</ul>';
+								workExp += '</div>';
+							}
+						workExp += '</div>';
+					}
 				});
 				workExp += '</div>';
 				$('#experiance-inner').html(workExp);
@@ -284,19 +289,81 @@ $(function () {
 		$('#plusExperianceItem').on('click', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
-			console.log('click plusExperianceItem');
+			let lastDataId = '';
+			$('input[name="experianceTitle[]"]').each(function () {
+				lastDataId = $(this).data('id');
+			});
+			let newDataId = parseInt(lastDataId + 1);
+
+			let expItem = '<div class="experiance-item">' +
+				'<div class="d-flex mb-3 align-items-center">' +
+					'<div class="me-2 fw-bolder col-2">' +
+						'<label class="" for="nameInput">Company name:</label>' +
+					'</div>' +
+					'<div class="col-10">' +
+						'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceTitle[]">' +
+					'</div>' +
+				'</div>' +
+				'<div class="d-flex mb-3 align-items-center">' +
+					'<div class="me-2 fw-bolder col-2">' +
+						'<label class="" for="nameInput">Position title:</label>' +
+					'</div>' +
+					'<div class="col-10">' +
+						'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experiancePosition[]">' +
+					'</div>' +
+				'</div>' +
+				'<div class="d-flex mb-3 align-items-center">' +
+					'<div class="me-2 fw-bolder col-2">' +
+						'<label class="" for="nameInput">Experiance dates:</label>' +
+					'</div>' +
+					'<div class="col-10">' +
+						'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateStart[]">' +
+						'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateEnd[]">' +
+					'</div>' +
+				'</div>' +
+				'<div class="responsibilities-wrap">' +
+					'<div class="me-2 d-flex align-items-center mb-2 fw-bolder">' +
+						'<label class="" for="nameInput">Responsibilities:</label>' +
+						'<a href="#" class="ms-2 text-primary plusResponsibilityItem" data-id="' + newDataId + '"><i class="bi bi-plus-circle"></i></a>' +
+					'</div>' +
+					'<div class="responsibilities">' +
+						'<ul class="list-unstyled responsibility-list" data-id="<%= dataId %>">' +
+							'<li class="d-flex align-items-center responsibility-item">' +
+								'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]"></textarea>' +
+								'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
+							'</li>'
+						'</ul>' +
+					'</div>' +
+				'</div>' +
+			'</div>';
+
+
+
+			$('.experiance-inner').append(expItem);
+			// console.log(newDataId);
 		});
 
 		$('.plusResponsibilityItem').on('click', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
-			console.log('click plus ResponsibilityItem');
+			let responsibilityItem = '<li class="d-flex align-items-center responsibility-item">' +
+				'<textarea class="w-100 mb-2 p-1 js-mainInfo" data-id="' + $(this).data('id') + '" rows="3" name="responsibility[]"></textarea>' +
+				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>';
+			let parent = $(this).parents('.responsibilities-wrap').children('.responsibilities');
+			console.log(parent.children('.responsibility-list').length);
+			if(parent.children('.responsibility-list').length) {
+				parent.children('.responsibility-list').append(responsibilityItem);
+			} else {
+				parent.append('<ul class="responsibility-list">' + responsibilityItem + '</ul>')
+			}
 		});
 
 		$(document).on('click', '.removeResponsibilityItem', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
-			console.log('click removeResponsibilityItem');
+			$(this).prev().val('');
+			$(this).parents('.responsibility-item').remove();
 		});
 		//endregion
 
@@ -334,44 +401,69 @@ $(function () {
 			let expDateStart = '';
 			let expDateEnd = '';
 			let expResponsibility = [];
+			let errors = [];
 			$('input[name="experianceTitle[]"]').each(function () {
 				let dataId = $(this).data("id");
+				if ($(this).val() === '') {
+					errors.push('experianceTitle empty')
+				}
 
 				$('input[name="experiancePosition[]"]').each(function () {
 					if ($(this).data("id") === dataId) {
-						expPosition = $(this).val();
+						if ($(this).val() !== '') {
+							expPosition = $(this).val();
+						} else {
+							errors.push('experiancePosition empty')
+						}
+
 					}
 				});
 
 				$('input[name="experianceDateStart[]"]').each(function () {
 					if ($(this).data("id") === dataId) {
-						expDateStart = $(this).val();
+						if ($(this).val() !== '') {
+							expDateStart = $(this).val();
+						} else {
+							errors.push('experianceDateStart empty')
+						}
 					}
 				});
 
 				$('input[name="experianceDateEnd[]"]').each(function () {
 					if ($(this).data("id") === dataId) {
-						expDateEnd = $(this).val();
+						if ($(this).val() !== '') {
+							expDateEnd = $(this).val();
+						} else {
+							errors.push('experianceDateEnd empty')
+						}
+
 					}
 				});
 
 				$('textarea[name="responsibility[]"]').each(function () {
 					if ($(this).data("id") === dataId) {
-						expResponsibility.push($(this).val());
+						if ($(this).val() !== '') {
+							expResponsibility.push($(this).val());
+						} else {
+							errors.push('responsibility empty')
+						}
 					}
 				});
 
-				experiaceItems.push({
-					companyName: $(this).val(),
-					position: expPosition,
-					dateStart: expDateStart,
-					dateEnd: expDateEnd,
-					responsibilities: expResponsibility
-				});
+				if (errors.length <= 0) {
+					experiaceItems.push({
+						companyName: $(this).val(),
+						position: expPosition,
+						dateStart: expDateStart,
+						dateEnd: expDateEnd,
+						responsibilities: expResponsibility
+					});
+				}
 				expPosition = '';
 				expDateStart = '';
 				expDateEnd = '';
 				expResponsibility = [];
+				errors = [];
 			});
 
 			console.log(experiaceItems);

@@ -147,7 +147,7 @@
                 <!-- /.section-title -->
 
                 <div class="about-inner" id="about-inner">
-                    <% if (cv.cv.summary.length > 0) {%>
+                    <% if (typeof cv.cv.summary !== 'undefined' && cv.cv.summary.length > 0) {%>
                         <ul class="about-list">
                             <% cv.cv.summary.forEach(function (value) { %>
                                 <li class="about-item d-flex align-items-center">
@@ -169,7 +169,7 @@
                 </div>
                 <!-- /.section-title -->
                 <div class="tehnical-skills-inner" id="tehnical-skills-inner">
-                    <% if (cv.cv.tehnicalSkillSet.length > 0) { %>
+                    <% if (typeof cv.cv.tehnicalSkillSet !== 'undefined' && cv.cv.tehnicalSkillSet.length > 0) { %>
                             <% cv.cv.tehnicalSkillSet.forEach(function (value) { %>
                                 <ul class="tehnical-skill-list list-unstyled">
                                     <% if (typeof value.categoryName !== 'undefined') { %>
@@ -179,7 +179,7 @@
                                         </li>
                                     <% } %>
 
-                                    <% if (value.skills.length > 0) { %>
+                                    <% if (typeof value.skills !== 'undefined' && value.skills.length > 0) { %>
                                         <% value.skills.forEach(function (skill) { %>
                                             <li class="technical-skill-item mb-2 d-flex align-items-center">
                                                 <input class="p-1 w-50 js-mainInfo" type="text" name="<%= value.categoryName %>_technicalskillSet[]" value="<%= skill %>">
@@ -204,7 +204,7 @@
                 <!-- /.section-title -->
 
                 <div class="experiance-inner" id="experiance-inner">
-                    <% if (cv.cv.workExperiance.length > 0) { %>
+                    <% if (typeof cv.cv.workExperiance !== 'undefined' && cv.cv.workExperiance.length > 0) { %>
                         <% let dataId = 0 %>
                         <% cv.cv.workExperiance.forEach(function (value) { %>
                             <div class="experiance-item">
@@ -235,14 +235,14 @@
                                 </div>
 
 
-                                <div>
+                                <div class="responsibilities-wrap">
                                     <div class="me-2 d-flex align-items-center mb-2 fw-bolder">
                                         <label class="" for="nameInput">Responsibilities:</label>
-                                        <a href="#" class="ms-2 text-primary plusResponsibilityItem"><i class="bi bi-plus-circle"></i></a>
+                                        <a href="#" class="ms-2 text-primary plusResponsibilityItem" data-id="<%= dataId %>"><i class="bi bi-plus-circle"></i></a>
                                     </div>
-                                    <div class="">
-                                        <% if (value.responsibilities.length > 0) { %>
-                                            <ul class="list-unstyled responsibility-list">
+                                    <div class="responsibilities">
+                                        <% if (typeof value.responsibilities !== 'undefined' && value.responsibilities.length > 0) { %>
+                                            <ul class="list-unstyled responsibility-list" data-id="<%= dataId %>">
                                                 <% value.responsibilities.forEach(function (responsibility, key) { %>
                                                     <li class="d-flex align-items-center responsibility-item">
                                                         <textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="<%= dataId %>" name="responsibility[]" id=""><%= responsibility %></textarea>
