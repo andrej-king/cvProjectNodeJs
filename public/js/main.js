@@ -187,7 +187,7 @@ $(function () {
 			// Experiance
 			if (cv.workExperiance.length > 0) {
 				let workExp = '<div class="experiance-item">'
-				$(cv.workExperiance).each(function (key, value) {
+				$(cv.workExperiance.reverse()).each(function (key, value) {
 					workExp += '<div class="experiance-item">';
 						workExp += '<div class="section-experiance_institution_title">';
 							workExp += value.companyName;
@@ -306,7 +306,6 @@ $(function () {
 
 		//endregion
 
-
 		// Trigger the event when the field loses focus
 		$(document).on('blur', '.js-mainInfo', function (e) {
 
@@ -330,6 +329,53 @@ $(function () {
 				skills = [];
 			});
 
+			const experiaceItems = [];
+			let expPosition = '';
+			let expDateStart = '';
+			let expDateEnd = '';
+			let expResponsibility = [];
+			$('input[name="experianceTitle[]"]').each(function () {
+				let dataId = $(this).data("id");
+
+				$('input[name="experiancePosition[]"]').each(function () {
+					if ($(this).data("id") === dataId) {
+						expPosition = $(this).val();
+					}
+				});
+
+				$('input[name="experianceDateStart[]"]').each(function () {
+					if ($(this).data("id") === dataId) {
+						expDateStart = $(this).val();
+					}
+				});
+
+				$('input[name="experianceDateEnd[]"]').each(function () {
+					if ($(this).data("id") === dataId) {
+						expDateEnd = $(this).val();
+					}
+				});
+
+				$('textarea[name="responsibility[]"]').each(function () {
+					if ($(this).data("id") === dataId) {
+						expResponsibility.push($(this).val());
+					}
+				});
+
+				experiaceItems.push({
+					companyName: $(this).val(),
+					position: expPosition,
+					dateStart: expDateStart,
+					dateEnd: expDateEnd,
+					responsibilities: expResponsibility
+				});
+				expPosition = '';
+				expDateStart = '';
+				expDateEnd = '';
+				expResponsibility = [];
+			});
+
+			console.log(experiaceItems);
+
 			const summary = [];
 			$('textarea[name="textSummary[]"]').each(function() {
 				summary.push($(this).val());
@@ -348,6 +394,11 @@ $(function () {
 			} else if (name === 'textSummary[]') {
 				name = 'summary';
 				content = summary;
+			} else if (name === 'experianceTitle[]' || name === 'experiancePosition[]' ||
+				name === 'experianceDateStart[]' || name === 'experianceDateEnd[]' || name === 'responsibility[]')
+			{
+				name = 'workExperiance';
+				content = experiaceItems;
 			}
 
 			if (name !== '' && content !== '') {
@@ -373,9 +424,6 @@ $(function () {
 				});
 			}
 		});
-
-
-
 	}
 });
 
