@@ -444,8 +444,6 @@ $(function () {
 					if ($(this).data("id") === dataId) {
 						if ($(this).val() !== '') {
 							expResponsibility.push($(this).val());
-						} else {
-							errors.push('responsibility empty')
 						}
 					}
 				});
