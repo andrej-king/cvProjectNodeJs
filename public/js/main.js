@@ -32,7 +32,7 @@ $(function () {
 				editBtn.attr('href', editBtnHref + '/' + cvObject._id);
 			}
 
-			// main info
+			//region main info
 			if (typeof cv.photoUrl !== 'undefined') {
 				$('#profile-photo').attr('src', cv.photoUrl).attr('alt', cv.name + ' ' + cv.surname);
 			} else {
@@ -51,17 +51,15 @@ $(function () {
 			} else {
 				$('#profile-position-wrap').addClass(hideImportantClass);
 			}
+			//endregion
 
-
-
-
-			// contacts
+			//region contacts
 			showInfoOrHideParentBlock(cv.contacts.city, '#address', '#section-contacts_address', hideImportantClass);
 			showInfoOrHideParentBlock(cv.contacts.phone, '#phone', '#section-contacts_phone', hideImportantClass);
 			showInfoOrHideParentBlock(cv.contacts.email, '#email', '#section-contacts_email', hideImportantClass);
+			//endregion
 
-
-			// education
+			//region education
 			if (typeof cv.education !== 'undefined' && cv.education.length > 0) {
 				let education = '';
 				$(cv.education).each(function (key, ed) {
@@ -83,9 +81,9 @@ $(function () {
 			} else {
 				$('#section-education').addClass(hideImportantClass);
 			}
+			//endregion
 
-
-			// technical courses
+			//region technical courses
 			if (typeof cv.technicalCourses !== 'undefined' && cv.technicalCourses.length > 0) {
 				let courses = '';
 				$(cv.technicalCourses).each(function (key, course) {
@@ -103,9 +101,10 @@ $(function () {
 			} else {
 				$('#section-technical-courses').addClass(hideImportantClass);
 			}
+			//endregion
 
 
-			// soft skills
+			//region soft skills
 			if (typeof cv.softSkillSet !== 'undefined' && cv.softSkillSet.length > 0) {
 				let softSkillList = '<p class="soft-skill-list">';
 				$(cv.softSkillSet).each(function (key, skill) {
@@ -122,8 +121,9 @@ $(function () {
 			} else {
 				$('#section-soft-skills').addClass(hideImportantClass);
 			}
+			//endregion
 
-			// languages
+			//region languages
 			if (typeof cv.language !== 'undefined' && cv.language.length > 0) {
 				let languageList = '<ul class="lang-list">';
 				$(cv.language).each(function (key, lang) {
@@ -141,8 +141,9 @@ $(function () {
 			} else {
 				$('#section-languages').addClass(hideImportantClass);
 			}
+			//endregion
 
-			// about
+			//region about
 			if (typeof cv.summary !== 'undefined' && cv.summary.length > 0) {
 				let aboutList = '<ul class="about-list">';
 				$(cv.summary).each(function (key, value) {
@@ -155,8 +156,9 @@ $(function () {
 			} else {
 				$('#section-about').addClass(hideImportantClass);
 			}
+			//endregion
 
-			//  Tehnical skills
+			//region  Tehnical skills
 			if (typeof cv.tehnicalSkillSet !== 'undefined' && cv.tehnicalSkillSet.length > 0) {
 				let skillSet = '';
 				$(cv.tehnicalSkillSet).each(function (key, value) {
@@ -182,9 +184,9 @@ $(function () {
 			} else {
 				$('#section-tehnical-skills').addClass(hideImportantClass);
 			}
+			//endregion
 
-
-			// Experiance
+			//region Experiance
 			if (typeof cv.workExperiance !== 'undefined' && cv.workExperiance.length > 0) {
 
 				let workExp = '<div class="experiance-item">'
@@ -224,6 +226,7 @@ $(function () {
 			} else {
 				$('#section-experiance').addClass(hideImportantClass);
 			}
+			//endregion
 		}
 	});
 	} else {
@@ -429,7 +432,7 @@ $(function () {
 
 		//endregion
 
-		// Trigger the event when the field loses focus
+		//region Trigger the event when the field loses focus
 		$(document).on('blur', '.js-mainInfo', function (e) {
 
 			//region tehnical skill set
@@ -555,6 +558,7 @@ $(function () {
 			});
 			//endregion
 
+			//region soft skill list
 			const softSkillList = [];
 			let softSkillVal;
 			$('input[name="softSkillList[]"]').each(function () {
@@ -563,6 +567,7 @@ $(function () {
 					softSkillList.push(softSkillVal);
 				}
 			});
+			//endregion
 
 			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
 				name = 'tehnicalSkillSet';
@@ -607,6 +612,7 @@ $(function () {
 				});
 			}
 		});
+		//endregion
 	}
 });
 
