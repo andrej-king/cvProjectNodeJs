@@ -82,9 +82,33 @@
             <div class="section-technical-courses profile-inner-section" id="section-technical-courses">
                 <div class="section-title">
                     Technical courses
+                    <a href="#" class="ms-2 text-primary" id="plusTechnicalCourseItem"><i class="bi bi-plus-circle"></i></a>
                 </div>
                 <!-- /.section-title -->
-                <div class="technical-courses-inner" id="technical-courses-inner"></div>
+                <div class="technical-courses-inner" id="technical-courses-inner">
+                    <% if (typeof cv.cv.technicalCourses !== 'undefined' && cv.cv.technicalCourses.length > 0) { %>
+                        <ul class="technical-courses-list list-unstyled">
+                            <% let dataId = 0; %>
+                            <% cv.cv.technicalCourses.forEach(function (course) { %>
+                                <li class="technical-courses-item d-flex align-items-center justify-content-between">
+                                    <div class="col-9">
+                                        <div class="technical-courses-title col-12 mb-2">
+                                            <input class="col-12 p-1 js-mainInfo" type="text" name="courseName[]" data-id="<%= dataId %>" value="<%= course.courseName %>">
+                                        </div>
+                                        <div class="technical-courses-dates col-12 d-flex justify-content-between">
+                                            <input class="col-5 p-1 js-mainInfo" type="text" name="courseDateStart[]" data-id="<%= dataId %>" value="<%= course.dateStart %>">
+                                            <input class="col-5 p-1 js-mainInfo" type="text" name="courseDateEnd[]" data-id="<%= dataId %>" value="<%= course.dateEnd %>">
+                                        </div>
+                                    </div>
+                                    <div class="col-3 text-center">
+                                        <a href="#" class="btn text-danger removeTechnicalCourseItem" data-id="<%= dataId %>"><i class="bi bi-trash-fill"></i></a>
+                                    </div>
+                                </li>
+                                <% dataId += 1; %>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </div>
                 <!-- /.education-inner -->
             </div>
             <!-- /.technical-courses -->

@@ -251,6 +251,53 @@ $(function () {
 		});
 		//endregion
 
+		//region section technical courses
+		$('#plusTechnicalCourseItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let lastDataId = '';
+			$('input[name="courseDateStart[]"]').each(function () {
+				lastDataId = $(this).data('id');
+			});
+			let newDataId = parseInt(lastDataId + 1);
+
+			let technicalCourseList = '<li class="technical-courses-item d-flex align-items-center justify-content-between">' +
+					'<div class="col-9">' +
+						'<div class="technical-courses-title col-12 mb-2">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="courseName[]" data-id="' + newDataId + '">' +
+						'</div>' +
+						'<div class="technical-courses-dates col-12 d-flex justify-content-between">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateStart[]" data-id="' + newDataId + '">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateEnd[]" data-id="' + newDataId + '">' +
+						'</div>' +
+					'</div>' +
+					'<div class="col-3 text-center">' +
+						'<a href="#" class="btn text-danger removeTechnicalCourseItem" data-id="' + newDataId + '"><i class="bi bi-trash-fill"></i></a>' +
+					'</div>' +
+				'</li>';
+
+			let parentTechnicalCourseItem = $(this).parents('.section-technical-courses').children('.technical-courses-inner');
+			if (parentTechnicalCourseItem.children('.technical-courses-list').length) {
+				$('.technical-courses-list').append(technicalCourseList);
+			} else {
+				parentTechnicalCourseItem.append('<ul class="technical-courses-list list-unstyled">'+ technicalCourseList +'</ul>');
+			}
+		});
+
+		$(document).on('click', '.removeTechnicalCourseItem', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			let dataId = $(this).data('id');
+
+			$('input[name="courseName[]"][data-id="'+ dataId +'"]').val('');
+			$('input[name="courseDateStart[]"][data-id="'+ dataId +'"]').val('');
+			$('input[name="courseDateEnd[]"][data-id="'+ dataId +'"]').val('');
+
+			$(this).parents('.technical-courses-item').remove();
+		});
+		//endregion
+
 		//region section soft skills
 		$('#plusSoftSkillItem').on('click', function (e) {
 			e.stopPropagation();
@@ -411,7 +458,6 @@ $(function () {
 				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>';
 			let parent = $(this).parents('.responsibilities-wrap').children('.responsibilities');
-			console.log(parent.children('.responsibility-list').length);
 			if(parent.children('.responsibility-list').length) {
 				parent.children('.responsibility-list').append(responsibilityItem);
 			} else {
@@ -541,6 +587,25 @@ $(function () {
 				$('#profile-photo').attr('src', content);
 			}
 
+			//region section technical courses
+			const technicalCoursesList = [];
+			let courseDataId, courseNameVal, courseDateStart, courseDateEnd;
+			$('input[name="courseName[]"]').each(function () {
+				courseDataId = $(this).data('id');
+				courseNameVal = $(this).val().trim();
+				courseDateStart = $('input[name="courseDateStart[]"][data-id="'+ courseDataId +'"]').val().trim();
+				courseDateEnd = $('input[name="courseDateEnd[]"][data-id="'+ courseDataId +'"]').val().trim();
+
+				if (courseNameVal !== '' && courseDateStart !== '' && courseDateEnd !== '') {
+					technicalCoursesList.push({
+						dateStart: courseDateStart,
+						dateEnd: courseDateEnd,
+						courseName: courseNameVal
+					})
+				}
+			})
+			//endregion
+
 			//region language list
 			const langList = [];
 			let langDataId, langVal, langLevel;
@@ -586,8 +651,10 @@ $(function () {
 			} else if (name === 'softSkillList[]') {
 				name = 'softSkillSet';
 				content = softSkillList;
+			} else if (name === 'courseName[]' || name === 'courseDateStart[]' || name === 'courseDateEnd[]') {
+				name = 'technicalCourses';
+				content = technicalCoursesList;
 			}
-
 
 			if (name !== '' && content !== '') {
 				$.ajax({
