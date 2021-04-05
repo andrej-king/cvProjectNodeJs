@@ -191,7 +191,7 @@ $(function () {
 
 				let workExp = '<div class="experiance-item">'
 				$(cv.workExperiance.reverse()).each(function (key, value) {
-					if (value.companyName !== '' && value.position !== '' && value.dateStart !== '' && value.dateEnd !== '' && value.responsibilities.length > 0 && value.responsibilities[0] !== '') {
+					if (value.companyName !== '' && value.position !== '' && value.dateStart !== '' && value.dateEnd !== '') {
 						workExp += '<div class="experiance-item">';
 							workExp += '<div class="section-experiance_institution_title">';
 								workExp += value.companyName;
@@ -279,6 +279,7 @@ $(function () {
 			$('input[name="educationDateEnd[]"][data-id="'+ dataId +'"]').val('');
 
 			$(this).parents('.education-item').remove();
+			sendAjax(editPageUrl, 'education', buildEducationItems());
 		})
 		//endregion
 
@@ -326,6 +327,8 @@ $(function () {
 			$('input[name="courseDateEnd[]"][data-id="'+ dataId +'"]').val('');
 
 			$(this).parents('.technical-courses-item').remove();
+
+			sendAjax(editPageUrl, 'technicalCourses', buildTechnicalCoursesList());
 		});
 		//endregion
 
@@ -352,6 +355,8 @@ $(function () {
 			e.preventDefault();
 			$(this).prev().val('');
 			$(this).parents('.soft-skill-item').remove();
+
+			sendAjax(editPageUrl, 'softSkillSet', buildSoftSkillList());
 		})
 		//endregion
 
@@ -387,6 +392,8 @@ $(function () {
 			$(this).prev().val('');
 			$(this).prev().prev().val('');
 			$(this).parents('.lang-item').remove();
+
+			sendAjax(editPageUrl, 'language', buildLangList());
 		})
 		//endregion
 
@@ -399,7 +406,14 @@ $(function () {
 				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>'
-			$('.about-list').append(aboutItem);
+			// $('.about-list').append(aboutItem);
+
+			let parentAboutItem = $(this).parents('.section-about').children('.about-inner');
+			if (parentAboutItem.children('.about-list').length) {
+				$('.about-list').append(aboutItem);
+			} else {
+				parentAboutItem.append('<ul class="about-list">'+ aboutItem +'</ul>');
+			}
 		});
 
 		$(document).on('click','.removeAboutItem',function(e) {
@@ -407,6 +421,8 @@ $(function () {
 			e.preventDefault();
 			$(this).prev().val('');
 			$(this).parents('.about-item').remove();
+
+			sendAjax(editPageUrl, 'summary', buildSummary());
 		});
 		//endregion
 
@@ -447,6 +463,8 @@ $(function () {
 			e.preventDefault();
 			$(this).prev().val('');
 			$(this).parents('.technical-skill-item').remove();
+
+			sendAjax(editPageUrl, 'tehnicalSkillSet', buildTehnicalSkillSet());
 		});
 		//endregion
 
@@ -496,7 +514,7 @@ $(function () {
 				'<li class="d-flex align-items-center responsibility-item">' +
 				'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
-				'</li>'
+				'</li>' +
 			'</ul>' +
 			'</div>' +
 			'</div>' +
@@ -525,6 +543,8 @@ $(function () {
 			e.preventDefault();
 			$(this).prev().val('');
 			$(this).parents('.responsibility-item').remove();
+
+			sendAjax(editPageUrl, 'workExperiance', buildExperianceItems());
 		});
 		//endregion
 
