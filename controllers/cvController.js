@@ -43,8 +43,7 @@ exports.postCV = (req, res) => {
 		'language',
 		'softSkillSet',
 		'technicalCourses',
-		'education',
-		'all'
+		'education'
 	];
 
 	const nestedObjects = [
@@ -64,8 +63,6 @@ exports.postCV = (req, res) => {
 
 				if (!nestedObjects.includes(name)) {
 					updatedCv.cv[name] = content;
-				} else if (name === 'all') {
-					updatedCv.cv = content;
 				} else {
 					updatedCv.cv.contacts[name] = content;
 				}

@@ -563,28 +563,7 @@ $(function () {
 				content = buildEducationItems();
 			}
 
-			if (name !== '' && content !== '') {
-				$.ajax({
-					url: editPageUrl,
-					method: "POST",
-					dataType: "json",
-					data: {cvId: $('#cvId').val(), name: name, content: content},
-					success: function (result) {
-						var now = new Date(Date.now());
-						var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-						$('.currentTime').html(formatted);
-						let resultColor = '';
-						if (result.result === 'success') {
-							resultColor = 'text-success';
-						} else {
-							resultColor = 'text-danger';
-						}
-
-						$('.toast-body').html(`<p class="${resultColor}">${result.msg}</p>`);
-						$('.toast').toast('show');
-					}
-				});
-			}
+			sendAjax(editPageUrl, name, content);
 		});
 		//endregion
 	}
@@ -595,6 +574,31 @@ function showInfoOrHideParentBlock(checkField, fieldForInsert, parentBlock, hide
 		$(parentBlock).addClass(hideClass);
 	} else {
 		$(fieldForInsert).html(checkField);
+	}
+}
+
+function sendAjax(editPageUrl, name, content) {
+	if (name !== '' && content !== '') {
+		$.ajax({
+			url: editPageUrl,
+			method: "POST",
+			dataType: "json",
+			data: {cvId: $('#cvId').val(), name: name, content: content},
+			success: function (result) {
+				var now = new Date(Date.now());
+				var formatted = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+				$('.currentTime').html(formatted);
+				let resultColor = '';
+				if (result.result === 'success') {
+					resultColor = 'text-success';
+				} else {
+					resultColor = 'text-danger';
+				}
+
+				$('.toast-body').html(`<p class="${resultColor}">${result.msg}</p>`);
+				$('.toast').toast('show');
+			}
+		});
 	}
 }
 
