@@ -40,7 +40,8 @@ exports.postCV = (req, res) => {
 		'tehnicalSkillSet',
 		'summary',
 		'workExperiance',
-		'language'
+		'language',
+		'softSkillSet'
 	];
 
 	const nestedObjects = [

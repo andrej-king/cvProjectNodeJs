@@ -248,6 +248,32 @@ $(function () {
 		});
 		//endregion
 
+		//region section soft skills
+		$('#plusSoftSkillItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let softSkillList = '<li class="soft-skill-item mb-1">' +
+				'<input class="p-1 col-9 js-mainInfo" type="text" name="softSkillList[]">' +
+				'<a href="#" class="btn text-danger ms-2 col-2 removeSoftSkillItem"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>';
+
+			let parentSoftSkillItems = $(this).parents('.section-soft-skills').children('.soft-skills-inner');
+			if (parentSoftSkillItems.children('.soft-skills-list').length) {
+				$('.soft-skills-list').append(softSkillList);
+			} else {
+				parentSoftSkillItems.append('<ul class="soft-skills-list list-unstyled">'+ softSkillList +'</ul>');
+			}
+		});
+
+		$(document).on('click', '.removeSoftSkillItem', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).prev().val('');
+			$(this).parents('.soft-skill-item').remove();
+		})
+		//endregion
+
 		//region section languages
 		$('#plusLangItem').on('click', function (e) {
 			e.stopPropagation();
@@ -282,8 +308,6 @@ $(function () {
 			$(this).parents('.lang-item').remove();
 		})
 		//endregion
-
-
 
 		//region section tehnical skills set
 		$('#plusTehnicalSkillsItem').on('click', function (e) {
@@ -531,6 +555,15 @@ $(function () {
 			});
 			//endregion
 
+			const softSkillList = [];
+			let softSkillVal;
+			$('input[name="softSkillList[]"]').each(function () {
+				softSkillVal = $(this).val().trim()
+				if (softSkillVal !== '') {
+					softSkillList.push(softSkillVal);
+				}
+			});
+
 			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
 				name = 'tehnicalSkillSet';
 				content = tehnicalSkillSet;
@@ -545,6 +578,9 @@ $(function () {
 			} else if (name === 'langName[]' || name === 'langLevel[]') {
 				name = 'language';
 				content = langList;
+			} else if (name === 'softSkillList[]') {
+				name = 'softSkillSet';
+				content = softSkillList;
 			}
 
 

@@ -92,9 +92,21 @@
             <div class="section-soft-skills profile-inner-section" id="section-soft-skills">
                 <div class="section-title">
                     Soft skills
+                    <a href="#" class="ms-2 text-primary" id="plusSoftSkillItem"><i class="bi bi-plus-circle"></i></a>
                 </div>
                 <!-- /.section-title -->
-                <div class="soft-skills-inner" id="soft-skills-inner"></div>
+                <div class="soft-skills-inner" id="soft-skills-inner">
+                    <% if (typeof cv.cv.softSkillSet !== 'undefined' && cv.cv.softSkillSet.length > 0) { %>
+                        <ul class="soft-skills-list list-unstyled">
+                            <% cv.cv.softSkillSet.forEach(function (skill) { %>
+                                <li class="soft-skill-item mb-1">
+                                    <input class="p-1 col-9 js-mainInfo" type="text" name="softSkillList[]" value="<%= skill %>">
+                                    <a href="#" class="btn text-danger ms-2 col-2 removeSoftSkillItem"><i class="bi bi-trash-fill"></i></a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                </div>
                 <!-- /.soft-skills-inner -->
             </div>
             <!-- /.section-soft-skills -->
@@ -129,7 +141,7 @@
         <div class="profile-right-section col-lg-8">
             <div class="d-flex flex-column justify-content-center align-items-start pt-5 profile-name-and-position-wrap profile-inner-section">
                 <div class="d-flex w-100 align-items-center" id="profile-name-wrap">
-                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                    <div class="px-0 col-3 col-lg-2 text-start section-title">
                         <label class="" for="nameInput">Name:</label>
                     </div>
                     <div class="col-9 col-lg-10">
@@ -137,7 +149,7 @@
                     </div>
                 </div>
                 <div class="d-flex w-100 align-items-center" id="profile-surname-wrap">
-                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                    <div class="px-0 col-3 col-lg-2 text-start section-title">
                         <label class="mr-2" for="surnameInput">Surname:</label>
                     </div>
                     <div class="col-9 col-lg-10">
@@ -145,7 +157,7 @@
                     </div>
                 </div>
                 <div class="d-flex w-100 align-items-center" id="profile-position-wrap">
-                    <div class="ps-0 col-3 col-lg-2 text-start section-title">
+                    <div class="px-0 col-3 col-lg-2 text-start section-title">
                         <label class="mr-2" for="positionInput">Position:</label>
                     </div>
                     <div class="col-9 col-lg-10">
