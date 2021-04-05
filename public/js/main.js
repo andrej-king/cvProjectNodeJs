@@ -244,14 +244,14 @@ $(function () {
 			let newEducationItem = '<li class="education-item d-flex align-items-center justify-content-between">' +
 					'<div class="col-9">' +
 						'<div class="education-item-institutionName col-12 mb-2">' +
-							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationInstitutionName[]" data-id="' + newDataId + '" placeholder="institution name">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationInstitutionName[]" data-id="' + newDataId + '" placeholder="Enter institution name">' +
 						'</div>' +
 						'<div class="education-item-institutionName col-12 mb-2">' +
-							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationCourseName[]" data-id="' + newDataId + '" placeholder="course name">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationCourseName[]" data-id="' + newDataId + '" placeholder="Enter course name">' +
 						'</div>' +
 						'<div class="technical-courses-dates col-12 d-flex justify-content-between">' +
-							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateStart[]" data-id="' + newDataId + '" placeholder="date start">' +
-							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateEnd[]" data-id="' + newDataId + '" placeholder="date end">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateStart[]" data-id="' + newDataId + '" placeholder="Date start">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateEnd[]" data-id="' + newDataId + '" placeholder="Date end">' +
 						'</div>' +
 					'</div>' +
 					'<div class="col-3 text-center">' +
@@ -297,11 +297,11 @@ $(function () {
 			let technicalCourseList = '<li class="technical-courses-item d-flex align-items-center justify-content-between">' +
 					'<div class="col-9">' +
 						'<div class="technical-courses-title col-12 mb-2">' +
-							'<input class="col-12 p-1 js-mainInfo" type="text" name="courseName[]" data-id="' + newDataId + '">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="courseName[]" data-id="' + newDataId + '" placeholder="Course name">' +
 						'</div>' +
 						'<div class="technical-courses-dates col-12 d-flex justify-content-between">' +
-							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateStart[]" data-id="' + newDataId + '">' +
-							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateEnd[]" data-id="' + newDataId + '">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateStart[]" data-id="' + newDataId + '" placeholder="Date start">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="courseDateEnd[]" data-id="' + newDataId + '" placeholder="Date end">' +
 						'</div>' +
 					'</div>' +
 					'<div class="col-3 text-center">' +
@@ -338,7 +338,7 @@ $(function () {
 			e.preventDefault();
 
 			let softSkillList = '<li class="soft-skill-item mb-1">' +
-				'<input class="p-1 col-9 js-mainInfo" type="text" name="softSkillList[]">' +
+				'<input class="p-1 col-9 js-mainInfo" type="text" name="softSkillList[]" placeholder="Skill name">' +
 				'<a href="#" class="btn text-danger ms-2 col-2 removeSoftSkillItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>';
 
@@ -372,8 +372,8 @@ $(function () {
 			let newDataId = parseInt(lastDataId + 1);
 
 			let languageList = '<li class="lang-item d-flex justify-content-around">' +
-				'<input class="col-4 p-1 js-mainInfo" type="text" name="langName[]" data-id="' + newDataId + '">' +
-				'<input class="col-5 p-1 js-mainInfo" type="text" name="langLevel[]" data-id="' + newDataId + '">' +
+				'<input class="col-4 p-1 js-mainInfo" type="text" name="langName[]" data-id="' + newDataId + '" placeholder="Lang name">' +
+				'<input class="col-5 p-1 js-mainInfo" type="text" name="langLevel[]" data-id="' + newDataId + '" placeholder="Lang level">' +
 				'<a href="#" class="btn text-danger ms-2 col-2 removeLangItem" data-id="' + newDataId + '"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>';
 
@@ -403,7 +403,7 @@ $(function () {
 			e.preventDefault();
 
 			let aboutItem = '<li class="about-item d-flex align-items-center">' +
-				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]"></textarea>' +
+				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]" placeholder="Text summary"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>'
 			// $('.about-list').append(aboutItem);
@@ -438,7 +438,7 @@ $(function () {
 
 			let aboutItem = '<ul class="tehnical-skill-list list-unstyled">' +
 				'<li class="technical-category-name mb-2 d-flex align-items-center">' +
-					'<input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" data-id="'+ newDataId +'" type="text" name="tehnicalSkillCategoryName[]"/>' +
+					'<input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" data-id="'+ newDataId +'" type="text" name="tehnicalSkillCategoryName[]" placeholder="Enter skill category name" />' +
 					'<a href="#" class="ms-2 text-primary plusTehnicalSkill" data-id="'+ newDataId +'"><i class="bi bi-plus-circle"></i></a>' +
 				'</li>' +
 				'</ul>' +
@@ -452,7 +452,7 @@ $(function () {
 			let dataId = $(this).data('id');
 
 			let appendSkill = '<li class="technical-skill-item mb-2 d-flex align-items-center">' +
-				'<input class="p-1 w-50 js-mainInfo" type="text" data-id="' + dataId + '" name="technicalskillSet[]">' +
+				'<input class="p-1 w-50 js-mainInfo" type="text" data-id="' + dataId + '" name="technicalskillSet[]" placeholder="Enter skill name">' +
 				'<a href="#" class="btn text-danger ms-2 removeTechnicalskill" data-id="' + dataId + '"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>'
 			$(this).parents('.tehnical-skill-list').append(appendSkill);
@@ -484,7 +484,7 @@ $(function () {
 				'<label class="" for="nameInput">Company name:</label>' +
 				'</div>' +
 				'<div class="col-10">' +
-				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceTitle[]">' +
+				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceTitle[]" placeholder="Enter company name">' +
 				'</div>' +
 				'</div>' +
 				'<div class="d-flex mb-3 align-items-center">' +
@@ -492,7 +492,7 @@ $(function () {
 				'<label class="" for="nameInput">Position title:</label>' +
 				'</div>' +
 				'<div class="col-10">' +
-				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experiancePosition[]">' +
+				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experiancePosition[]" placeholder="Enter position">' +
 				'</div>' +
 				'</div>' +
 				'<div class="d-flex mb-3 align-items-center">' +
@@ -500,8 +500,8 @@ $(function () {
 				'<label class="" for="nameInput">Experiance dates:</label>' +
 				'</div>' +
 				'<div class="col-10">' +
-				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateStart[]">' +
-				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateEnd[]">' +
+				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateStart[]" placeholder="Date start">' +
+				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateEnd[]" placeholder="Date end">' +
 				'</div>' +
 				'</div>' +
 				'<div class="responsibilities-wrap">' +
@@ -512,7 +512,7 @@ $(function () {
 				'<div class="responsibilities">' +
 				'<ul class="list-unstyled responsibility-list" data-id="<%= dataId %>">' +
 				'<li class="d-flex align-items-center responsibility-item">' +
-				'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]"></textarea>' +
+				'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]" placeholder="Enter responsibility"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>' +
 			'</ul>' +
@@ -527,7 +527,7 @@ $(function () {
 			e.stopPropagation();
 			e.preventDefault();
 			let responsibilityItem = '<li class="d-flex align-items-center responsibility-item">' +
-				'<textarea class="w-100 mb-2 p-1 js-mainInfo" data-id="' + $(this).data('id') + '" rows="3" name="responsibility[]"></textarea>' +
+				'<textarea class="w-100 mb-2 p-1 js-mainInfo" data-id="' + $(this).data('id') + '" rows="3" name="responsibility[]" placeholder="Enter responsibility"></textarea>' +
 				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>';
 			let parent = $(this).parents('.responsibilities-wrap').children('.responsibilities');
@@ -721,8 +721,12 @@ function buildExperianceItems() {
 
 function buildSummary() {
 	const summary = [];
+	let summaryItem;
 	$('textarea[name="textSummary[]"]').each(function() {
-		summary.push($(this).val());
+		summaryItem = $(this).val().trim();
+		if (summaryItem !== '') {
+			summary.push($(this).val());
+		}
 	});
 	return summary;
 }
