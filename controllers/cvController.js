@@ -43,7 +43,8 @@ exports.postCV = (req, res) => {
 		'language',
 		'softSkillSet',
 		'technicalCourses',
-		'education'
+		'education',
+		'all'
 	];
 
 	const nestedObjects = [

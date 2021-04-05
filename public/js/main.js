@@ -414,11 +414,16 @@ $(function () {
 		$('#plusTehnicalSkillsItem').on('click', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
+			let lastDataId = '';
+			$('input[name="tehnicalSkillCategoryName[]"]').each(function () {
+				lastDataId = $(this).data('id');
+			});
+			let newDataId = parseInt(lastDataId + 1);
 
 			let aboutItem = '<ul class="tehnical-skill-list list-unstyled">' +
 				'<li class="technical-category-name mb-2 d-flex align-items-center">' +
-					'<input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" type="text" name="tehnicalSkillCategoryName[]"/>' +
-					'<a href="#" class="ms-2 text-primary plusTehnicalSkill"><i class="bi bi-plus-circle"></i></a>' +
+					'<input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" data-id="'+ newDataId +'" type="text" name="tehnicalSkillCategoryName[]"/>' +
+					'<a href="#" class="ms-2 text-primary plusTehnicalSkill" data-id="'+ newDataId +'"><i class="bi bi-plus-circle"></i></a>' +
 				'</li>' +
 				'</ul>' +
 				'<hr>';
@@ -428,12 +433,11 @@ $(function () {
 		$(document).on('click','.plusTehnicalSkill',function(e) {
 			e.stopPropagation();
 			e.preventDefault();
+			let dataId = $(this).data('id');
 
-
-			let inputName = $(this).prev().val() + '_technicalskillSet[]';
 			let appendSkill = '<li class="technical-skill-item mb-2 d-flex align-items-center">' +
-				'<input class="p-1 w-50 js-mainInfo" type="text" name="' + inputName + '">' +
-				'<a href="#" class="btn text-danger ms-2 removeTechnicalskill"><i class="bi bi-trash-fill"></i></a>' +
+				'<input class="p-1 w-50 js-mainInfo" type="text" data-id="' + dataId + '" name="technicalskillSet[]">' +
+				'<a href="#" class="btn text-danger ms-2 removeTechnicalskill" data-id="' + dataId + '"><i class="bi bi-trash-fill"></i></a>' +
 				'</li>'
 			$(this).parents('.tehnical-skill-list').append(appendSkill);
 		});
@@ -444,8 +448,6 @@ $(function () {
 			$(this).prev().val('');
 			$(this).parents('.technical-skill-item').remove();
 		});
-
-		ignoreWiteSpaceKey('.tehnicalSkillCategoryName');
 		//endregion
 
 		//region section experiance
@@ -532,16 +534,19 @@ $(function () {
 			//region tehnical skill set
 			const tehnicalSkillSet = [];
 			let skills = [];
+			let categoryId, categoryName, skillName;
 			$('input[name="tehnicalSkillCategoryName[]"]').each(function() {
+				categoryId = $(this).data('id');
+				categoryName = $(this).val().trim();
 
-				let inputName = 'input[name="' + $(this).val() +'_technicalskillSet[]"]';
-				$(inputName).each(function() {
-					if ($(this).val() !== '') {
-						skills.push($(this).val());
+				$('input[name="technicalskillSet[]"][data-id="'+ categoryId +'"]').each(function () {
+					skillName = $(this).val().trim();
+					if (skillName !== '') {
+						skills.push(skillName);
 					}
 				});
 
-				if (skills.length > 0) {
+				if (categoryName !== '' && skills.length > 0) {
 					tehnicalSkillSet.push({
 						categoryName: $(this).val(),
 						skills: skills
@@ -671,7 +676,7 @@ $(function () {
 						dateStart: courseDateStart,
 						dateEnd: courseDateEnd,
 						courseName: courseNameVal
-					})
+					});
 				}
 			})
 			//endregion
@@ -764,13 +769,4 @@ function showInfoOrHideParentBlock(checkField, fieldForInsert, parentBlock, hide
 	} else {
 		$(fieldForInsert).html(checkField);
 	}
-}
-
-function ignoreWiteSpaceKey(input) {
-	$(document).on('keypress', input, function (evt) {
-		var keycode = evt.charCode || evt.keyCode;
-		if (keycode  === 32) {
-			return false;
-		}
-	});
 }

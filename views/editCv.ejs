@@ -246,25 +246,27 @@
                 <!-- /.section-title -->
                 <div class="tehnical-skills-inner" id="tehnical-skills-inner">
                     <% if (typeof cv.cv.tehnicalSkillSet !== 'undefined' && cv.cv.tehnicalSkillSet.length > 0) { %>
+                            <% let dataId = 0; %>
                             <% cv.cv.tehnicalSkillSet.forEach(function (value) { %>
                                 <ul class="tehnical-skill-list list-unstyled">
                                     <% if (typeof value.categoryName !== 'undefined') { %>
                                         <li class="technical-category-name mb-2 d-flex align-items-center">
-                                            <input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" type="text" name="tehnicalSkillCategoryName[]" value="<%= value.categoryName %>" />
-                                            <a href="#" class="ms-2 text-primary plusTehnicalSkill"><i class="bi bi-plus-circle"></i></a>
+                                            <input class="p-1 mr-1 tehnicalSkillCategoryName js-mainInfo" type="text" data-id="<%= dataId %>" name="tehnicalSkillCategoryName[]" value="<%= value.categoryName %>" />
+                                            <a href="#" class="ms-2 text-primary plusTehnicalSkill" data-id="<%= dataId %>"><i class="bi bi-plus-circle"></i></a>
                                         </li>
                                     <% } %>
 
                                     <% if (typeof value.skills !== 'undefined' && value.skills.length > 0) { %>
                                         <% value.skills.forEach(function (skill) { %>
                                             <li class="technical-skill-item mb-2 d-flex align-items-center">
-                                                <input class="p-1 w-50 js-mainInfo" type="text" name="<%= value.categoryName %>_technicalskillSet[]" value="<%= skill %>">
-                                                <a href="#" class="btn text-danger ms-2 removeTechnicalskill"><i class="bi bi-trash-fill"></i></a>
+                                                <input class="p-1 w-50 js-mainInfo" type="text" data-id="<%= dataId %>" name="technicalskillSet[]" value="<%= skill %>">
+                                                <a href="#" class="btn text-danger ms-2 removeTechnicalskill" data-id="<%= dataId %>"><i class="bi bi-trash-fill"></i></a>
                                             </li>
                                         <% }) %>
                                     <% } %>
                                 </ul>
                             <hr>
+                        <% dataId += 1; %>
                             <% }) %>
                     <% } %>
                 </div>
