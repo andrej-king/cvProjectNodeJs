@@ -530,210 +530,37 @@ $(function () {
 
 		//region Trigger the event when the field loses focus
 		$(document).on('blur', '.js-mainInfo', function (e) {
-
-			//region tehnical skill set
-			const tehnicalSkillSet = [];
-			let skills = [];
-			let categoryId, categoryName, skillName;
-			$('input[name="tehnicalSkillCategoryName[]"]').each(function() {
-				categoryId = $(this).data('id');
-				categoryName = $(this).val().trim();
-
-				$('input[name="technicalskillSet[]"][data-id="'+ categoryId +'"]').each(function () {
-					skillName = $(this).val().trim();
-					if (skillName !== '') {
-						skills.push(skillName);
-					}
-				});
-
-				if (categoryName !== '' && skills.length > 0) {
-					tehnicalSkillSet.push({
-						categoryName: $(this).val(),
-						skills: skills
-					});
-				}
-				skills = [];
-			});
-			//endregion
-
-			//region experiace items
-			const experiaceItems = [];
-			let expPosition = '';
-			let expDateStart = '';
-			let expDateEnd = '';
-			let expResponsibility = [];
-			let errors = [];
-			$('input[name="experianceTitle[]"]').each(function () {
-				let dataId = $(this).data("id");
-				if ($(this).val() === '') {
-					errors.push('experianceTitle empty')
-				}
-
-				$('input[name="experiancePosition[]"]').each(function () {
-					if ($(this).data("id") === dataId) {
-						if ($(this).val() !== '') {
-							expPosition = $(this).val();
-						} else {
-							errors.push('experiancePosition empty')
-						}
-
-					}
-				});
-
-				$('input[name="experianceDateStart[]"]').each(function () {
-					if ($(this).data("id") === dataId) {
-						if ($(this).val() !== '') {
-							expDateStart = $(this).val();
-						} else {
-							errors.push('experianceDateStart empty')
-						}
-					}
-				});
-
-				$('input[name="experianceDateEnd[]"]').each(function () {
-					if ($(this).data("id") === dataId) {
-						if ($(this).val() !== '') {
-							expDateEnd = $(this).val();
-						} else {
-							errors.push('experianceDateEnd empty')
-						}
-
-					}
-				});
-
-				$('textarea[name="responsibility[]"]').each(function () {
-					if ($(this).data("id") === dataId) {
-						if ($(this).val() !== '') {
-							expResponsibility.push($(this).val());
-						}
-					}
-				});
-
-				if (errors.length <= 0) {
-					experiaceItems.push({
-						companyName: $(this).val(),
-						position: expPosition,
-						dateStart: expDateStart,
-						dateEnd: expDateEnd,
-						responsibilities: expResponsibility
-					});
-				}
-				expPosition = '';
-				expDateStart = '';
-				expDateEnd = '';
-				expResponsibility = [];
-				errors = [];
-			});
-			//endregion
-
-			//region summary
-			const summary = [];
-			$('textarea[name="textSummary[]"]').each(function() {
-				summary.push($(this).val());
-			});
-			//endregion
-
-
 			let name = e.target.name;
 			let content = e.target.value.trim();
 			if (name === 'photoUrl') {
 				$('#profile-photo').attr('src', content);
 			}
 
-			//region education
-			const educationItems = [];
-			let institutionId, institutionName, educationCourseName, educationDateStart, educationDateEnd;
-			$('input[name="educationInstitutionName[]"]').each(function () {
-				institutionId = $(this).data('id');
-				institutionName = $(this).val().trim();
-				educationCourseName = $('input[name="educationCourseName[]"][data-id="'+ institutionId +'"]').val().trim();
-				educationDateStart = $('input[name="educationDateStart[]"][data-id="'+ institutionId +'"]').val().trim();
-				educationDateEnd = $('input[name="educationDateEnd[]"][data-id="'+ institutionId +'"]').val().trim();
-				if (institutionName !== '' && educationCourseName !== '' &&
-					educationDateStart !== '' && educationDateEnd !== '')
-				{
-					educationItems.push({
-						dateStart: educationDateStart,
-						dateEnd: educationDateEnd,
-						institutionName: institutionName,
-						courseName: educationCourseName
-					});
-				}
-			});
-			//endregion
-
-			//region section technical courses
-			const technicalCoursesList = [];
-			let courseDataId, courseNameVal, courseDateStart, courseDateEnd;
-			$('input[name="courseName[]"]').each(function () {
-				courseDataId = $(this).data('id');
-				courseNameVal = $(this).val().trim();
-				courseDateStart = $('input[name="courseDateStart[]"][data-id="'+ courseDataId +'"]').val().trim();
-				courseDateEnd = $('input[name="courseDateEnd[]"][data-id="'+ courseDataId +'"]').val().trim();
-
-				if (courseNameVal !== '' && courseDateStart !== '' && courseDateEnd !== '') {
-					technicalCoursesList.push({
-						dateStart: courseDateStart,
-						dateEnd: courseDateEnd,
-						courseName: courseNameVal
-					});
-				}
-			})
-			//endregion
-
-			//region language list
-			const langList = [];
-			let langDataId, langVal, langLevel;
-			$('input[name="langName[]"]').each(function () {
-				langDataId = $(this).data('id');
-				langVal = $(this).val().trim();
-				langLevel = $('input[name="langLevel[]"][data-id="'+ langDataId +'"]').val().trim();
-
-				if (langVal !== '' && langLevel !== '') {
-					langList.push({
-						name: langVal,
-						level: langLevel
-					})
-				}
-			});
-			//endregion
-
-			//region soft skill list
-			const softSkillList = [];
-			let softSkillVal;
-			$('input[name="softSkillList[]"]').each(function () {
-				softSkillVal = $(this).val().trim()
-				if (softSkillVal !== '') {
-					softSkillList.push(softSkillVal);
-				}
-			});
-			//endregion
-
 			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
 				name = 'tehnicalSkillSet';
-				content = tehnicalSkillSet;
+				content = buildTehnicalSkillSet();
 			} else if (name === 'textSummary[]') {
 				name = 'summary';
-				content = summary;
+				content = buildSummary();
 			} else if (name === 'experianceTitle[]' || name === 'experiancePosition[]' ||
 				name === 'experianceDateStart[]' || name === 'experianceDateEnd[]' || name === 'responsibility[]')
 			{
 				name = 'workExperiance';
-				content = experiaceItems;
+				content = buildExperianceItems();
 			} else if (name === 'langName[]' || name === 'langLevel[]') {
 				name = 'language';
-				content = langList;
+				content = buildLangList();
 			} else if (name === 'softSkillList[]') {
 				name = 'softSkillSet';
-				content = softSkillList;
+				content = buildSoftSkillList();
 			} else if (name === 'courseName[]' || name === 'courseDateStart[]' || name === 'courseDateEnd[]') {
 				name = 'technicalCourses';
-				content = technicalCoursesList;
+				content = buildTechnicalCoursesList();
 			} else if (name === 'educationInstitutionName[]' || name === 'educationCourseName[]' ||
 				name === 'educationDateStart[]' || name === 'educationDateEnd[]')
 			{
 				name = 'education';
-				content = educationItems;
+				content = buildEducationItems();
 			}
 
 			if (name !== '' && content !== '') {
@@ -769,4 +596,203 @@ function showInfoOrHideParentBlock(checkField, fieldForInsert, parentBlock, hide
 	} else {
 		$(fieldForInsert).html(checkField);
 	}
+}
+
+function buildTehnicalSkillSet() {
+	const tehnicalSkillSet = [];
+	let skills = [];
+	let categoryId, categoryName, skillName;
+	$('input[name="tehnicalSkillCategoryName[]"]').each(function() {
+		categoryId = $(this).data('id');
+		categoryName = $(this).val().trim();
+
+		$('input[name="technicalskillSet[]"][data-id="'+ categoryId +'"]').each(function () {
+			skillName = $(this).val().trim();
+			if (skillName !== '') {
+				skills.push(skillName);
+			}
+		});
+
+		if (categoryName !== '' && skills.length > 0) {
+			tehnicalSkillSet.push({
+				categoryName: $(this).val(),
+				skills: skills
+			});
+		}
+		skills = [];
+	});
+	return tehnicalSkillSet;
+}
+
+function buildExperianceItems() {
+	const experiaceItems = [];
+	let expPosition = '';
+	let expDateStart = '';
+	let expDateEnd = '';
+	let expResponsibility = [];
+	let errors = [];
+	$('input[name="experianceTitle[]"]').each(function () {
+		let dataId = $(this).data("id");
+		if ($(this).val() === '') {
+			errors.push('experianceTitle empty')
+		}
+
+		$('input[name="experiancePosition[]"]').each(function () {
+			if ($(this).data("id") === dataId) {
+				if ($(this).val() !== '') {
+					expPosition = $(this).val();
+				} else {
+					errors.push('experiancePosition empty')
+				}
+
+			}
+		});
+
+		$('input[name="experianceDateStart[]"]').each(function () {
+			if ($(this).data("id") === dataId) {
+				if ($(this).val() !== '') {
+					expDateStart = $(this).val();
+				} else {
+					errors.push('experianceDateStart empty')
+				}
+			}
+		});
+
+		$('input[name="experianceDateEnd[]"]').each(function () {
+			if ($(this).data("id") === dataId) {
+				if ($(this).val() !== '') {
+					expDateEnd = $(this).val();
+				} else {
+					errors.push('experianceDateEnd empty')
+				}
+
+			}
+		});
+
+		$('textarea[name="responsibility[]"]').each(function () {
+			if ($(this).data("id") === dataId) {
+				if ($(this).val() !== '') {
+					expResponsibility.push($(this).val());
+				}
+			}
+		});
+
+		if (errors.length <= 0) {
+			experiaceItems.push({
+				companyName: $(this).val(),
+				position: expPosition,
+				dateStart: expDateStart,
+				dateEnd: expDateEnd,
+				responsibilities: expResponsibility
+			});
+		}
+		expPosition = '';
+		expDateStart = '';
+		expDateEnd = '';
+		expResponsibility = [];
+		errors = [];
+	});
+	return experiaceItems;
+}
+
+function buildSummary() {
+	const summary = [];
+	$('textarea[name="textSummary[]"]').each(function() {
+		summary.push($(this).val());
+	});
+	return summary;
+}
+
+function buildEducationItems() {
+	const educationItems = [];
+	let institutionId, institutionName, educationCourseName, educationDateStart, educationDateEnd;
+	$('input[name="educationInstitutionName[]"]').each(function () {
+		institutionId = $(this).data('id');
+		institutionName = $(this).val().trim();
+		educationCourseName = $('input[name="educationCourseName[]"][data-id="'+ institutionId +'"]').val().trim();
+		educationDateStart = $('input[name="educationDateStart[]"][data-id="'+ institutionId +'"]').val().trim();
+		educationDateEnd = $('input[name="educationDateEnd[]"][data-id="'+ institutionId +'"]').val().trim();
+		if (institutionName !== '' && educationCourseName !== '' &&
+			educationDateStart !== '' && educationDateEnd !== '')
+		{
+			educationItems.push({
+				dateStart: educationDateStart,
+				dateEnd: educationDateEnd,
+				institutionName: institutionName,
+				courseName: educationCourseName
+			});
+		}
+	});
+	return educationItems;
+}
+
+function buildTechnicalCoursesList() {
+	const technicalCoursesList = [];
+	let courseDataId, courseNameVal, courseDateStart, courseDateEnd;
+	$('input[name="courseName[]"]').each(function () {
+		courseDataId = $(this).data('id');
+		courseNameVal = $(this).val().trim();
+		courseDateStart = $('input[name="courseDateStart[]"][data-id="'+ courseDataId +'"]').val().trim();
+		courseDateEnd = $('input[name="courseDateEnd[]"][data-id="'+ courseDataId +'"]').val().trim();
+
+		if (courseNameVal !== '' && courseDateStart !== '' && courseDateEnd !== '') {
+			technicalCoursesList.push({
+				dateStart: courseDateStart,
+				dateEnd: courseDateEnd,
+				courseName: courseNameVal
+			});
+		}
+	});
+	return technicalCoursesList;
+}
+
+function buildLangList() {
+	const langList = [];
+	let langDataId, langVal, langLevel;
+	$('input[name="langName[]"]').each(function () {
+		langDataId = $(this).data('id');
+		langVal = $(this).val().trim();
+		langLevel = $('input[name="langLevel[]"][data-id="'+ langDataId +'"]').val().trim();
+
+		if (langVal !== '' && langLevel !== '') {
+			langList.push({
+				name: langVal,
+				level: langLevel
+			})
+		}
+	});
+	return langList;
+}
+
+function buildSoftSkillList() {
+	const softSkillList = [];
+	let softSkillVal;
+	$('input[name="softSkillList[]"]').each(function () {
+		softSkillVal = $(this).val().trim()
+		if (softSkillVal !== '') {
+			softSkillList.push(softSkillVal);
+		}
+	});
+	return softSkillList;
+}
+
+function buildFullCv() {
+	return fullCv = {
+		name: $('input[name="name"]'),
+		surname: $('input[name="surname"]'),
+		photoUrl: $('input[name="photoUrl"]'),
+		careerObjective: $('input[name="careerObjective"]'),
+		contacts: {
+			city: $('input[name="city"]'),
+			email: $('input[name="phone"]'),
+			phone: $('input[name="email"]')
+		},
+		summary: buildSummary(),
+		tehnicalSkillSet: buildTehnicalSkillSet(),
+		softSkillSet: buildSoftSkillList(),
+		workExperiance: buildExperianceItems(),
+		education: buildEducationItems(),
+		technicalCourses: buildTechnicalCoursesList(),
+		language: buildLangList()
+	};
 }

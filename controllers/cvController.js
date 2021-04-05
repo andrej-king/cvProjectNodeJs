@@ -61,40 +61,11 @@ exports.postCV = (req, res) => {
 		CV.findById(cvId)
 			.then(cv => {
 				const updatedCv = cv;
-/*				switch (name) {
-					case "name":
-						updatedCv.cv.name = content;
-						break;
-					case "surname":
-						updatedCv.cv.surname = content;
-						break;
-					case "age":
-						updatedCv.cv.age = content;
-						break;
-					case "photoUrl":
-						updatedCv.cv.photoUrl = content;
-						break;
-					case "birthday":
-						updatedCv.cv.birthday = content;
-						break;
-					case "careerObjective":
-						updatedCv.cv.careerObjective = content;
-						break;
-					case "city":
-						updatedCv.cv.contacts.city = content;
-						break;
-					case "email":
-						updatedCv.cv.contacts.email = content;
-						break;
-					case "phone":
-						updatedCv.cv.contacts.phone = content;
-						break;
-					default:
-						res.send({"result": "error", "msg": "Error"});
-				}*/
 
 				if (!nestedObjects.includes(name)) {
 					updatedCv.cv[name] = content;
+				} else if (name === 'all') {
+					updatedCv.cv = content;
 				} else {
 					updatedCv.cv.contacts[name] = content;
 				}
