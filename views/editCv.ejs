@@ -102,9 +102,24 @@
             <div class="section-languages profile-inner-section" id="section-languages">
                 <div class="section-title">
                     Languages
+                    <a href="#" class="ms-2 text-primary" id="plusLangItem"><i class="bi bi-plus-circle"></i></a>
                 </div>
                 <!-- /.section-title -->
-                <div class="languages-inner" id="languages-inner"></div>
+                <div class="languages-inner" id="languages-inner">
+                    <ul class="lang-list list-unstyled">
+                        <% if (typeof cv.cv.language !== 'undefined' && cv.cv.language.length > 0) {%>
+                            <% let dataId = 0; %>
+                            <% cv.cv.language.forEach(function (lang) { %>
+                                <li class="lang-item d-flex justify-content-around">
+                                    <input class="col-4 p-1 js-mainInfo" type="text" name="langName[]" data-id="<%= dataId %>" value="<%= lang.name %>">
+                                    <input class="col-5 p-1 js-mainInfo" type="text" name="langLevel[]" data-id="<%= dataId %>" value="<%= lang.level %>">
+                                    <a href="#" class="btn text-danger ms-2 col-2 removeLangItem" data-id="<%= dataId %>"><i class="bi bi-trash-fill"></i></a>
+                                </li>
+                                <% dataId += 1; %>
+                            <% }); %>
+                        <% } %>
+                    </ul>
+                </div>
                 <!-- /.languages-inner -->
             </div>
             <!-- /.section-languages -->

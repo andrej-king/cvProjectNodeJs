@@ -248,6 +248,42 @@ $(function () {
 		});
 		//endregion
 
+		//region section languages
+		$('#plusLangItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let lastDataId = '';
+			$('input[name="langName[]"]').each(function () {
+				lastDataId = $(this).data('id');
+			});
+			let newDataId = parseInt(lastDataId + 1);
+
+			let languageList = '<li class="lang-item d-flex justify-content-around">' +
+				'<input class="col-4 p-1 js-mainInfo" type="text" name="langName[]" data-id="' + newDataId + '">' +
+				'<input class="col-5 p-1 js-mainInfo" type="text" name="langLevel[]" data-id="' + newDataId + '">' +
+				'<a href="#" class="btn text-danger ms-2 col-2 removeLangItem" data-id="' + newDataId + '"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>';
+
+			let parentLangItems = $(this).parents('.section-languages').children('.languages-inner');
+			if (parentLangItems.children('.lang-list').length) {
+				$('.lang-list').append(languageList);
+			} else {
+				parentLangItems.append('<ul class="lang-list list-unstyled">'+ languageList +'</ul>');
+			}
+		});
+
+		$(document).on('click', '.removeLangItem', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			$(this).prev().val('');
+			$(this).prev().prev().val('');
+			$(this).parents('.lang-item').remove();
+		})
+		//endregion
+
+
 
 		//region section tehnical skills set
 		$('#plusTehnicalSkillsItem').on('click', function (e) {
@@ -337,10 +373,7 @@ $(function () {
 				'</div>' +
 			'</div>';
 
-
-
 			$('.experiance-inner').append(expItem);
-			// console.log(newDataId);
 		});
 
 		$('.plusResponsibilityItem').on('click', function (e) {
@@ -367,7 +400,6 @@ $(function () {
 		});
 		//endregion
 
-
 		//region tehnical Skill Set
 		ignoreWiteSpaceKey('.tehnicalSkillCategoryName');
 
@@ -376,6 +408,7 @@ $(function () {
 		// Trigger the event when the field loses focus
 		$(document).on('blur', '.js-mainInfo', function (e) {
 
+			//region tehnical skill set
 			const tehnicalSkillSet = [];
 			let skills = [];
 			$('input[name="tehnicalSkillCategoryName[]"]').each(function() {
@@ -395,7 +428,9 @@ $(function () {
 				}
 				skills = [];
 			});
+			//endregion
 
+			//region experiace items
 			const experiaceItems = [];
 			let expPosition = '';
 			let expDateStart = '';
@@ -463,13 +498,14 @@ $(function () {
 				expResponsibility = [];
 				errors = [];
 			});
+			//endregion
 
-			console.log(experiaceItems);
-
+			//region summary
 			const summary = [];
 			$('textarea[name="textSummary[]"]').each(function() {
 				summary.push($(this).val());
 			});
+			//endregion
 
 
 			let name = e.target.name;
@@ -477,6 +513,23 @@ $(function () {
 			if (name === 'photoUrl') {
 				$('#profile-photo').attr('src', content);
 			}
+
+			//region language list
+			const langList = [];
+			let langDataId, langVal, langLevel;
+			$('input[name="langName[]"]').each(function () {
+				langDataId = $(this).data('id');
+				langVal = $(this).val().trim();
+				langLevel = $('input[name="langLevel[]"][data-id="'+ langDataId +'"]').val().trim();
+
+				if (langVal !== '' && langLevel !== '') {
+					langList.push({
+						name: langVal,
+						level: langLevel
+					})
+				}
+			});
+			//endregion
 
 			if (name === 'tehnicalSkillCategoryName[]' || name.indexOf("technicalskillSet[]") >= 0) {
 				name = 'tehnicalSkillSet';
@@ -489,7 +542,11 @@ $(function () {
 			{
 				name = 'workExperiance';
 				content = experiaceItems;
+			} else if (name === 'langName[]' || name === 'langLevel[]') {
+				name = 'language';
+				content = langList;
 			}
+
 
 			if (name !== '' && content !== '') {
 				$.ajax({
