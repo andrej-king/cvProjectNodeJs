@@ -70,10 +70,35 @@
             <div class="section-education profile-inner-section" id="section-education">
                 <div class="section-title">
                     Education
+                    <a href="#" class="ms-2 text-primary" id="plusEducationItem"><i class="bi bi-plus-circle"></i></a>
                 </div>
                 <!-- /.section-title -->
                 <div class="education-inner" id="education-inner">
-
+                    <% if (typeof cv.cv.education !== 'undefined' && cv.cv.education.length > 0) { %>
+                        <ul class="education-list-items list-unstyled">
+                            <% let dataId = 0; %>
+                            <% cv.cv.education.forEach(function (educationItem) { %>
+                                <li class="education-item d-flex align-items-center justify-content-between">
+                                    <div class="col-9">
+                                        <div class="education-item-institutionName col-12 mb-2">
+                                            <input class="col-12 p-1 js-mainInfo" type="text" name="educationInstitutionName[]" data-id="<%= dataId %>" value="<%= educationItem.institutionName %>" placeholder="institution name">
+                                        </div>
+                                        <div class="education-item-institutionName col-12 mb-2">
+                                            <input class="col-12 p-1 js-mainInfo" type="text" name="educationCourseName[]" data-id="<%= dataId %>" value="<%= educationItem.courseName %>" placeholder="course name">
+                                        </div>
+                                        <div class="technical-courses-dates col-12 d-flex justify-content-between">
+                                            <input class="col-5 p-1 js-mainInfo" type="text" name="educationDateStart[]" data-id="<%= dataId %>" value="<%= educationItem.dateStart %>" placeholder="date start">
+                                            <input class="col-5 p-1 js-mainInfo" type="text" name="educationDateEnd[]" data-id="<%= dataId %>" value="<%= educationItem.dateEnd %>" placeholder="date end">
+                                        </div>
+                                    </div>
+                                    <div class="col-3 text-center">
+                                        <a href="#" class="btn text-danger removeEducationItem" data-id="<%= dataId %>"><i class="bi bi-trash-fill"></i></a>
+                                    </div>
+                                </li>
+                                <% dataId += 1; %>
+                            <% }) %>
+                        </ul>
+                    <% } %>
                 </div>
                 <!-- /.education-inner -->
             </div>

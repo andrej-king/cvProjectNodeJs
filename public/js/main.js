@@ -231,24 +231,55 @@ $(function () {
 	});
 	} else {
 
-		//region about section
-		$('#plusAboutItem').on('click', function (e) {
+		//region education
+		$('#plusEducationItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+			let lastDataId = '';
+			$('input[name="educationInstitutionName[]"]').each(function () {
+				lastDataId = $(this).data('id');
+			});
+			let newDataId = parseInt(lastDataId + 1);
+
+			let newEducationItem = '<li class="education-item d-flex align-items-center justify-content-between">' +
+					'<div class="col-9">' +
+						'<div class="education-item-institutionName col-12 mb-2">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationInstitutionName[]" data-id="' + newDataId + '" placeholder="institution name">' +
+						'</div>' +
+						'<div class="education-item-institutionName col-12 mb-2">' +
+							'<input class="col-12 p-1 js-mainInfo" type="text" name="educationCourseName[]" data-id="' + newDataId + '" placeholder="course name">' +
+						'</div>' +
+						'<div class="technical-courses-dates col-12 d-flex justify-content-between">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateStart[]" data-id="' + newDataId + '" placeholder="date start">' +
+							'<input class="col-5 p-1 js-mainInfo" type="text" name="educationDateEnd[]" data-id="' + newDataId + '" placeholder="date end">' +
+						'</div>' +
+					'</div>' +
+					'<div class="col-3 text-center">' +
+						'<a href="#" class="btn text-danger removeEducationItem" data-id="<%= dataId %>"><i class="bi bi-trash-fill"></i></a>' +
+					'</div>' +
+				'</li>';
+
+			let parentEducationItem = $(this).parents('.section-education').children('.education-inner');
+			if (parentEducationItem.children('.education-list-items').length) {
+				$('.education-list-items').append(newEducationItem);
+			} else {
+				parentEducationItem.append('<ul class="education-list-items list-unstyled">'+ newEducationItem +'</ul>');
+			}
+		});
+
+		$(document).on('click', '.removeEducationItem', function (e) {
 			e.stopPropagation();
 			e.preventDefault();
 
-			let aboutItem = '<li class="about-item d-flex align-items-center">' +
-				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]"></textarea>' +
-				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
-				'</li>'
-			$('.about-list').append(aboutItem);
-		});
+			let dataId = $(this).data('id');
 
-		$(document).on('click','.removeAboutItem',function(e) {
-			e.stopPropagation();
-			e.preventDefault();
-			$(this).prev().val('');
-			$(this).parents('.about-item').remove();
-		});
+			$('input[name="educationInstitutionName[]"][data-id="'+ dataId +'"]').val('');
+			$('input[name="educationCourseName[]"][data-id="'+ dataId +'"]').val('');
+			$('input[name="educationDateStart[]"][data-id="'+ dataId +'"]').val('');
+			$('input[name="educationDateEnd[]"][data-id="'+ dataId +'"]').val('');
+
+			$(this).parents('.education-item').remove();
+		})
 		//endregion
 
 		//region section technical courses
@@ -359,6 +390,26 @@ $(function () {
 		})
 		//endregion
 
+		//region about section
+		$('#plusAboutItem').on('click', function (e) {
+			e.stopPropagation();
+			e.preventDefault();
+
+			let aboutItem = '<li class="about-item d-flex align-items-center">' +
+				'<textarea rows="3" class="w-100 p-1 js-mainInfo" type="text" name="textSummary[]"></textarea>' +
+				'<a href="#" class="btn text-danger ms-2 removeAboutItem"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>'
+			$('.about-list').append(aboutItem);
+		});
+
+		$(document).on('click','.removeAboutItem',function(e) {
+			e.stopPropagation();
+			e.preventDefault();
+			$(this).prev().val('');
+			$(this).parents('.about-item').remove();
+		});
+		//endregion
+
 		//region section tehnical skills set
 		$('#plusTehnicalSkillsItem').on('click', function (e) {
 			e.stopPropagation();
@@ -393,6 +444,8 @@ $(function () {
 			$(this).prev().val('');
 			$(this).parents('.technical-skill-item').remove();
 		});
+
+		ignoreWiteSpaceKey('.tehnicalSkillCategoryName');
 		//endregion
 
 		//region section experiance
@@ -407,44 +460,44 @@ $(function () {
 
 			let expItem = '<div class="experiance-item">' +
 				'<div class="d-flex mb-3 align-items-center">' +
-					'<div class="me-2 fw-bolder col-2">' +
-						'<label class="" for="nameInput">Company name:</label>' +
-					'</div>' +
-					'<div class="col-10">' +
-						'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceTitle[]">' +
-					'</div>' +
+				'<div class="me-2 fw-bolder col-2">' +
+				'<label class="" for="nameInput">Company name:</label>' +
+				'</div>' +
+				'<div class="col-10">' +
+				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceTitle[]">' +
+				'</div>' +
 				'</div>' +
 				'<div class="d-flex mb-3 align-items-center">' +
-					'<div class="me-2 fw-bolder col-2">' +
-						'<label class="" for="nameInput">Position title:</label>' +
-					'</div>' +
-					'<div class="col-10">' +
-						'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experiancePosition[]">' +
-					'</div>' +
+				'<div class="me-2 fw-bolder col-2">' +
+				'<label class="" for="nameInput">Position title:</label>' +
+				'</div>' +
+				'<div class="col-10">' +
+				'<input type="text" class="w-100 p-1 js-mainInfo" data-id="' + newDataId + '" name="experiancePosition[]">' +
+				'</div>' +
 				'</div>' +
 				'<div class="d-flex mb-3 align-items-center">' +
-					'<div class="me-2 fw-bolder col-2">' +
-						'<label class="" for="nameInput">Experiance dates:</label>' +
-					'</div>' +
-					'<div class="col-10">' +
-						'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateStart[]">' +
-						'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateEnd[]">' +
-					'</div>' +
+				'<div class="me-2 fw-bolder col-2">' +
+				'<label class="" for="nameInput">Experiance dates:</label>' +
+				'</div>' +
+				'<div class="col-10">' +
+				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateStart[]">' +
+				'<input type="text" class="w-40 p-1 js-mainInfo" data-id="' + newDataId + '" name="experianceDateEnd[]">' +
+				'</div>' +
 				'</div>' +
 				'<div class="responsibilities-wrap">' +
-					'<div class="me-2 d-flex align-items-center mb-2 fw-bolder">' +
-						'<label class="" for="nameInput">Responsibilities:</label>' +
-						'<a href="#" class="ms-2 text-primary plusResponsibilityItem" data-id="' + newDataId + '"><i class="bi bi-plus-circle"></i></a>' +
-					'</div>' +
-					'<div class="responsibilities">' +
-						'<ul class="list-unstyled responsibility-list" data-id="<%= dataId %>">' +
-							'<li class="d-flex align-items-center responsibility-item">' +
-								'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]"></textarea>' +
-								'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
-							'</li>'
-						'</ul>' +
-					'</div>' +
+				'<div class="me-2 d-flex align-items-center mb-2 fw-bolder">' +
+				'<label class="" for="nameInput">Responsibilities:</label>' +
+				'<a href="#" class="ms-2 text-primary plusResponsibilityItem" data-id="' + newDataId + '"><i class="bi bi-plus-circle"></i></a>' +
 				'</div>' +
+				'<div class="responsibilities">' +
+				'<ul class="list-unstyled responsibility-list" data-id="<%= dataId %>">' +
+				'<li class="d-flex align-items-center responsibility-item">' +
+				'<textarea class="w-100 mb-2 p-1 js-mainInfo" rows="3" data-id="' + newDataId + '" name="responsibility[]"></textarea>' +
+				'<a href="#" class="btn text-danger ms-2 removeResponsibilityItem"><i class="bi bi-trash-fill"></i></a>' +
+				'</li>'
+			'</ul>' +
+			'</div>' +
+			'</div>' +
 			'</div>';
 
 			$('.experiance-inner').append(expItem);
@@ -471,11 +524,6 @@ $(function () {
 			$(this).prev().val('');
 			$(this).parents('.responsibility-item').remove();
 		});
-		//endregion
-
-		//region tehnical Skill Set
-		ignoreWiteSpaceKey('.tehnicalSkillCategoryName');
-
 		//endregion
 
 		//region Trigger the event when the field loses focus
@@ -587,6 +635,28 @@ $(function () {
 				$('#profile-photo').attr('src', content);
 			}
 
+			//region education
+			const educationItems = [];
+			let institutionId, institutionName, educationCourseName, educationDateStart, educationDateEnd;
+			$('input[name="educationInstitutionName[]"]').each(function () {
+				institutionId = $(this).data('id');
+				institutionName = $(this).val().trim();
+				educationCourseName = $('input[name="educationCourseName[]"][data-id="'+ institutionId +'"]').val().trim();
+				educationDateStart = $('input[name="educationDateStart[]"][data-id="'+ institutionId +'"]').val().trim();
+				educationDateEnd = $('input[name="educationDateEnd[]"][data-id="'+ institutionId +'"]').val().trim();
+				if (institutionName !== '' && educationCourseName !== '' &&
+					educationDateStart !== '' && educationDateEnd !== '')
+				{
+					educationItems.push({
+						dateStart: educationDateStart,
+						dateEnd: educationDateEnd,
+						institutionName: institutionName,
+						courseName: educationCourseName
+					});
+				}
+			});
+			//endregion
+
 			//region section technical courses
 			const technicalCoursesList = [];
 			let courseDataId, courseNameVal, courseDateStart, courseDateEnd;
@@ -654,6 +724,11 @@ $(function () {
 			} else if (name === 'courseName[]' || name === 'courseDateStart[]' || name === 'courseDateEnd[]') {
 				name = 'technicalCourses';
 				content = technicalCoursesList;
+			} else if (name === 'educationInstitutionName[]' || name === 'educationCourseName[]' ||
+				name === 'educationDateStart[]' || name === 'educationDateEnd[]')
+			{
+				name = 'education';
+				content = educationItems;
 			}
 
 			if (name !== '' && content !== '') {
